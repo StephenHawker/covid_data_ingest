@@ -1,0 +1,6 @@
+2020-06-19 21:42:52,410 - convex - ERROR - An Exception in : MAIN :__main__
+2020-06-19 21:42:52,410 - convex - ERROR - <class 'NameError'>
+2020-06-19 21:42:52,410 - convex - ERROR - name 'DistanceCalc' is not defined
+2020-06-19 21:43:07,783 - convex - INFO - Started run. main:
+2020-06-19 21:43:07,784 - convex - DEBUG - input address file : address_file.txt 
+2020-06-19 21:43:07,791 - convex - INFO - Completed run.
