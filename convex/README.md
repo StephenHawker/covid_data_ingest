@@ -1,17 +1,35 @@
-firestation_ingest.py - Ingest of Fire station location details
+app.py - Parquet file processing
 ====================================
 
 ## Description
 
-Extracts firestation location details from a specified URL, stores this data as csv file format.
-The program then calculates the 3 closest firestations from a list of specified addresses 
+Using any language or combination of languages except .NET (e.g. Bash script, Python, R, Java, Scala, etc) using AWS SDK libraries (e.g. boto, Java
+SDK, except .NET) or the AWS CLI (bash script) write an app/script that:
 
-## Written By Steve Hawker 19/07/2019 
+Locally creates a Parquet file with some data in it (the nature of the data and size, is not important)
+Creates an S3 bucket, and uploads the parquet file to the bucket
+Creates an IAM Role that gives Read & List access to the S3 bucket
+Spins up an EC2 instance that has the above IAM Role attached
+
+Install R on the EC2 instance
+Copies a “Parquet Reader” R Script (see below for details on this script) to the EC2 instance
+Runs the “Parquet Reader” R Script
+
+The AWS credentials used should be picked up in the usual way from ~/.aws/credentials, the particular profile used should be passed in as a
+command line argument.
+Any other configurable should be passed in as command line arguments. The app/script should be non-interactive.
+
+Parquet Reader R Script
+The R Script should
+Use credentials via the Instance Profile associated to the IAM Role
+Read the parquet file in the S3 bucket, and print out the second record in the parquet file to standard error.
+The R libraries used to read and process the file are up to you.
+
+## Written By Steve Hawker 19/06/2020
 
 ## Requirements
 
  - Python 3.7 or later.
- - A Google Maps API key.
  - The following Python libraries
    - configparser
    - urllib 
@@ -24,35 +42,16 @@ The program then calculates the 3 closest firestations from a list of specified 
    - import io
    - import ssl
    - pandas
-   - haversine
-   - BeautifulSoup
-   - googlemaps
    - requests
    - simplejson
+   - boto3 - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#bucket
 
 ### API keys
 
-Each Google Maps Web Service request requires an API key or client ID. API keys
-are freely available with a Google Account at
-https://developers.google.com/console. 
-Note, your google account requires the following API's enabled to function
- - [Directions API]
- - [Distance Matrix API]
- - [Elevation API]
- - [Geocoding API]
- - [Geolocation API]
- - [Time Zone API]
- - [Roads API]
- - [Places API]
-
 ## Run	
 
-Configure firestation_ingest.ini with the appropriate parameters
-Edit Lookup_addresses.csv with the appropriate addresses to find the nearest n firestations
-firestation_nearest.json is a json file of the addresses \ associated n nearest firestations
-run firestation_ingest.py  (no parameters required) to scrape the website and create json output
-Estimated travel time at 8am on a Monday / 11pm on a Thursday to the location from each firestation
-this extra calculation by setting b_travel=True/False
+Configure convex.ini with the appropriate parameters
+
 
 
 

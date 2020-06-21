@@ -7,7 +7,10 @@ import simplejson as json
 import pandas
 import pyarrow as pa
 import pyarrow.parquet as pq
+import uuid
 from APILookup import APILookup
+from StorageBucket import StorageBucket
+
 from HelperFunctions import HelperFunctions
 from collections import defaultdict
 
@@ -27,20 +30,6 @@ class DatabaseLoadError(Exception):
     def __str__(self):
         return repr(self.data)
 
-
-class FirestationIngestError(Exception):
-    """FirestationIngestError Exception
-
-    Keyword arguments:
-    Exception -- Exception
-    """
-    def __init__(self, data):
-        self.data = data
-
-    def __str__(self):
-        return repr(self.data)
-
-
 ############################################################
 # Main
 ############################################################
@@ -49,6 +38,20 @@ def main():
 
     """
     try:
+
+        import argparse
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('bucket_name', help='The name of the bucket to create.')
+        parser.add_argument('region', help='The region in which to create your bucket.')
+        parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not '
+                                                  'specified, the bucket is deleted '
+                                                  'at the end of the demo.',
+                            action='store_true')
+
+        args = parser.parse_args()
+
+        #create_and_delete_my_bucket(args.bucket_name, args.region, args.keep_bucket)
 
         LOGGER.info('Started run. main:')
         addresses_file = configImport["convex.address_file"]
@@ -61,15 +64,31 @@ def main():
         address_table = pa.Table.from_pandas(df_addr)
         pq.write_table(address_table, address_file_parquet)
 
+        uoStorageBucket = StorageBucket()
+
+        put_policy_desc = {
+            'Version': '2012-10-17',
+            'Id': str(uuid.uuid1()),
+            'Statement': [{
+                'Effect': 'Allow',
+                'Principal': {'AWS': 'arn:aws:iam::111122223333:user/convex'},
+                'Action': [
+                    's3:GetObject',
+                    's3:PutObject',
+                    's3:ListBucket'
+                ],
+                'Resource': [
+                    f'arn:aws:s3:::{bucket.name}/*',
+                    f'arn:aws:s3:::{bucket.name}'
+                ]
+            }]
+        }
+
+
         LOGGER.info('Completed run.')
 
-    except FirestationIngestError as recex:
-        LOGGER.error("An Exception occurred Firestation Ingest  ")
-        LOGGER.error(recex.data)
-        raise FirestationIngestError(recex)
-
     except Exception:
-        LOGGER.error("An Exception occurred Firestation Ingest ")
+        LOGGER.error("An Exception occurred convex ACS Ingest ")
         LOGGER.error(str(sys.exc_info()[0]))
         LOGGER.error(str(sys.exc_info()[1]))
         # print getattr(e, 'message', repr(e))
@@ -116,10 +135,6 @@ if __name__ == "__main__":
         LOGGER.addHandler(HANDLER)
 
         main()
-
-    except FirestationIngestError as exrec:
-        LOGGER.error("Error in Convex Technical Test - 110620 - 1442 - please check:" + str(exrec.data))
-        raise Exception("Convex Technical Test - 110620 - 1442 Error")
 
     except Exception:
         LOGGER.error("An Exception in : MAIN :" + __name__)
