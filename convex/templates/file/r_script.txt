@@ -1,0 +1,17 @@
+# This is a program to read a parquet file and print line 2
+# to standard error
+# Author: Steve Hawker
+#######################################################
+setwd("/tmp")
+install.packages("arrow")
+install.packages("devtools")
+install.packages("aws.s3")
+library(arrow)
+install_arrow()
+read_parquet("address_file.parquet")
+
+try({
+  df <- read_parquet(system.file("address_file.parquet", package="arrow"))
+})
+
+

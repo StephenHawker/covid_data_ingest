@@ -20,7 +20,7 @@ class SSHInstanceAdmin:
     ############################################################
     # Connect to instance via SSH
     ############################################################
-    def ssh_connect(self):
+    def ssh_connect(self, username):
         """
         Connect via ssh to the instance
         Usage is shown in usage_demo at the end of this module.
@@ -35,14 +35,14 @@ class SSHInstanceAdmin:
 
             # Connect/ssh to an instance
             # Here 'ec2-user' is user name and 'instance_ip' is public IP of EC2
-            self.client.connect(hostname=self.instance_ip, username="ec2-user", pkey=self.key, timeout=100)
+            self.client.connect(hostname=self.instance_ip, username=username, pkey=self.key, timeout=100)
 
             self.transport = self.client.get_transport()
             self.session = self.transport.open_session()
 
         except Exception as error:
 
-            self.LOGGER.exception("Couldn't connect to ec2 instance ip address:  %s", ip_address)
+            self.LOGGER.exception("Couldn't connect to ec2 instance ip address:  %s", self.ip_address)
             self.LOGGER.exception("Error:  %s", repr(error))
             raise error(repr(error))
 

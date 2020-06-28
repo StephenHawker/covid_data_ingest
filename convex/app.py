@@ -136,7 +136,7 @@ def main():
         uoSSH = SSHInstanceAdmin(INSTANCE_KEY_FILE_NAME,
                                  '35.178.76.128'
                                  )
-        uoSSH.ssh_connect()
+        uoSSH.ssh_connect("ec2-user")
         install_script_list = uoHelperfunct.read_to_list(FILE_TEMPLATE_FOLDER
                                                          + '/' + INSTALL_SCRIPT)
         uoSSH.execute_commands(install_script_list)
