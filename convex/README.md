@@ -44,7 +44,21 @@ The R libraries used to read and process the file are up to you.
    - pandas
    - requests
    - simplejson
+   - pyarrow (parquet file handling)
    - boto3 - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#bucket
+   - paramiko (ssh client for EC2)
+   - R - R is available in Amazon Linux Extra topic "R3.4"
+     sudo amazon-linux-extras install R3.4
+     https://aws.amazon.com/amazon-linux-2/faqs/#Amazon_Linux_Extras
+    This version is too low for many libraries - https://stackoverflow.com/questions/59415973/how-to-install-newer-version-of-r-on-amazon-linux-2
+    yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum -y install R
+   - Configure access via instance profile : https://aws.amazon.com/premiumsupport/knowledge-center/s3-instance-access-bucket/
+     https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-configure-metadata.html
+## Tools used
+
+AWS command line interface to setup credentials : https://aws.amazon.com/cli/ 
+AWS policy gen : https://awspolicygen.s3.amazonaws.com/policygen.html
 
 ### API keys
 

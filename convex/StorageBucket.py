@@ -11,18 +11,16 @@ class StorageBucket:
     ############################################################
     # constructor
     ############################################################
-    def __init__(self):
+    def __init__(self, region):
 
         self.name = "Storage Bucket"
-        self.bucketname = self.create_bucket_name("sth")
+        self.region = region
         self.LOGGER = logging.getLogger(__name__)
-        self.client = boto3.client('s3')
-        self.session = boto3.session.Session()
-        self.current_region = self.session.region_name
-        self.logger = logging.getLogger(__name__)
+        self.session = boto3.session.Session(profile_name='default', region_name=region)
+        self.s3client = boto3.client('s3')
 
         self.s3resource = boto3.resource('s3')
-        self.bucket = self.s3resource.Bucket('name')
+        #self.bucket = self.s3resource.Bucket('name')
 
     ############################################################
     # str
@@ -41,28 +39,30 @@ class StorageBucket:
     ############################################################
     # Create S3 bucket - region eu-west-2
     ############################################################
-    def create_bucket(self):
+    def create_bucket(self, bucket_name_prefix):
 
         try:
+
+            self.bucketname = self.create_bucket_name(bucket_name_prefix)
             bucket_response = self.s3resource.create_bucket(Bucket=self.bucketname,
                                   CreateBucketConfiguration={
-                                      'LocationConstraint': self.current_region})
+                                      'LocationConstraint': self.region})
             bucket_response.wait_until_exists()
 
-            self.logger.info("Created bucket '%s' in region=%s", bucket_response.name,
+            self.LOGGER.info("Created bucket '%s' in region=%s", bucket_response.name,
                         self.s3resource.meta.client.meta.region_name)
-            print(self.bucketname, self.current_region)
+            print(self.bucketname, self.region)
 
         except ClientError as error:
 
-            self.logger.exception("Couldn't create bucket named '%s' in region=%s.",
-                             self.bucketname, self.current_region)
+            self.LOGGER.exception("Couldn't create bucket named '%s' in region=%s.",
+                             self.bucketname, self.region)
             if error.response['Error']['Code'] == 'IllegalLocationConstraintException':
-                self.logger.error("When the session Region is anything other than us-east-1, "
+                self.LOGGER.error("When the session Region is anything other than us-east-1, "
                              "you must specify a LocationConstraint that matches the "
                              "session Region. The current session Region is %s and the "
                              "LocationConstraint Region is %s.",
-                             self.s3resources3.meta.client.meta.region_name, self.current_region)
+                             self.s3resource.meta.client.meta.region_name, self.region)
             raise error
         else:
             return bucket_response
@@ -116,15 +116,33 @@ class StorageBucket:
     def delete_bucket(self, bucket):
         """
         Delete a bucket. The bucket must be empty or an error is raised.
-        Usage is shown in usage_demo at the end of this module.
         :param bucket: The bucket to delete.
         """
         try:
+            bucket = self.s3resource.Bucket(bucket)
+            response = bucket.delete()
             bucket.delete()
             bucket.wait_until_not_exists()
             self.logger.info("Bucket %s successfully deleted.", bucket.name)
         except ClientError:
             self.logger.exception("Couldn't delete bucket %s.", bucket.name)
+            raise
+
+    ############################################################
+    # Add file to bucket
+    ############################################################
+    def add_file_to_bucket(self, full_file_path, file_name, prefix):
+        """
+        Add file to bucket.
+        :param file_name: The file name.
+        :param prefix: The prefix for the file.
+        """
+        try:
+            full_path_key = prefix + file_name
+            self.s3resource.meta.client.upload_file(full_file_path, self.bucketname, full_path_key)
+
+        except ClientError:
+            self.logger.exception("Couldn't add file %s to bucket %s.", full_path_key, self.bucketname)
             raise
 
     ############################################################
