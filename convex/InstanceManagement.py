@@ -90,7 +90,6 @@ class InstanceManagement:
                                             instance_id):
         """
         Get the security policy of a bucket.
-        Usage is shown in usage_demo at the end of this module.
         :param session: The.
         :retu
         """

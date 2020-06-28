@@ -100,6 +100,29 @@ class HelperFunctions:
 
 
     ############################################################
+    # read file and pass contents back
+    ############################################################
+    def read_file_contents(self, filename):
+        """
+        Write file from list
+        :param filename: The filename to read to get template.
+        :return file_contents: Return replaced file contents
+        """
+
+        try:
+
+            with open(filename, 'r') as f:
+                file_contents = f.read()
+
+            return file_contents
+
+        except Exception as error:
+            self.LOGGER.exception("Error in read_file_contents : %s", repr(error))
+            self.LOGGER.exception(("Error in read_file_contents - filename - %s  ", filename))
+            raise Exception("Error in read_file_contents - filename - %s  ", filename)
+
+
+    ############################################################
     # write file with passed contents
     ############################################################
     def write_file(self, contents, filename):

@@ -1,5 +1,5 @@
-app.py - Parquet file processing
-====================================
+app.py - Parquet file processing using EC2 / S3 bucket
+======================================================
 
 ## Description
 
@@ -32,18 +32,13 @@ The R libraries used to read and process the file are up to you.
  - Python 3.7 or later.
  - The following Python libraries
    - configparser
-   - urllib 
-   - import urllib.parse
-   - import urllib.parse as urlparse
    - import sys
    - import math
    - import logging
    - import logging.config
    - import io
-   - import ssl
    - pandas
    - requests
-   - simplejson
    - pyarrow (parquet file handling)
    - boto3 - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#bucket
    - paramiko (ssh client for EC2)
@@ -56,7 +51,7 @@ The R libraries used to read and process the file are up to you.
    - Configure access via instance profile : https://aws.amazon.com/premiumsupport/knowledge-center/s3-instance-access-bucket/
      https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-configure-metadata.html
 ## Tools used
-
+Pycharm Community 2020.1 IDS for python development
 AWS command line interface to setup credentials : https://aws.amazon.com/cli/ 
 AWS policy gen : https://awspolicygen.s3.amazonaws.com/policygen.html
 

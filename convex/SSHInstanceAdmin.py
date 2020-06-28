@@ -35,7 +35,7 @@ class SSHInstanceAdmin:
 
             # Connect/ssh to an instance
             # Here 'ec2-user' is user name and 'instance_ip' is public IP of EC2
-            self.client.connect(hostname=self.instance_ip, username=username, pkey=self.key, timeout=100)
+            self.client.connect(hostname=self.ip_address, username=username, pkey=self.key, timeout=100)
 
             self.transport = self.client.get_transport()
             self.session = self.transport.open_session()
@@ -62,7 +62,7 @@ class SSHInstanceAdmin:
                 stdin, stdout, stderr = self.client.exec_command(command)
 
                 output = stdout.readlines()
-                stdinput = stdin.readlines()
+                #stdinput = stdin.readlines()
                 erroroutput = stderr.readlines()
 
         except Exception as error:
