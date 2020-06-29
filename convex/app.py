@@ -70,7 +70,9 @@ def main():
         LOGGER.debug("IAM_PATH : %s ", IAM_PATH)
 
         uo_iam_admin = IAMAdmin(REGION, IAM_PATH, 'default')
-        #role_arn = uo_iam_admin.create_role(ROLE_NAME, ROLE_DESCRIPTION)
+        #role_arn = uo_iam_admin.create_role(ROLE_NAME,
+        #                                     ROLE_DESCRIPTION,
+        #                                     EC2POLICY_FILE)
         role_arn = 'rolearnvalue'
 
 
@@ -184,6 +186,20 @@ def main():
         '''
         uo_ssh.upload_single_file(R_SCRIPT, R_SCRIPT_REMOTE_LOC)
 
+        chmod_command_list_r = []
+        chmod_command_list_r.append('chmod +x ' +
+                                  R_SCRIPT_REMOTE_LOC +
+                                  '/' + R_SCRIPT)
+
+        #Set permissions on r script
+        uo_ssh.execute_commands(chmod_command_list_r)
+
+
+        run_r_script = []
+        run_r_script.append('R ' + R_SCRIPT_REMOTE_LOC +
+                            '/' + R_SCRIPT)
+
+        uo_ssh.execute_commands(run_r_script)
 
     except Exception as error:
 
@@ -265,6 +281,7 @@ if __name__ == "__main__":
         STARTUP_SCRIPT = CONFIGIMPORT["convex.startup_script"]
 
         S3POLICY_FILE = CONFIGIMPORT["convex.s3policyfile"]
+        EC2POLICY_FILE = CONFIGIMPORT["convex.ec2policyfile"]
         RSCRIPT_TEMPLATE = CONFIGIMPORT["convex.r_script_template"]
         R_SCRIPT = CONFIGIMPORT["convex.r_script"]
         R_SCRIPT_REMOTE_LOC = CONFIGIMPORT["convex.r_script_remote_loc"]

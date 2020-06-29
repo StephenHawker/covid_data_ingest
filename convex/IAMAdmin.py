@@ -39,7 +39,11 @@ class IAMAdmin:
     ############################################################
     # create role
     ############################################################
-    def create_role(self, role_name, role_description):
+    def create_role(self,
+                    role_name,
+                    role_description,
+                    trust_policy
+                    ):
         """
         Get the security policy of a bucket.
         :param role_name: The role name to create
@@ -50,20 +54,6 @@ class IAMAdmin:
             role_name = role_name
             description = role_description
 
-            trust_policy = {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Sid": "",
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": "ec2.amazonaws.com"
-                        },
-                        "Action": "sts:AssumeRole"
-                    }
-                ]
-            }
-
             response = iam.create_role(
                 Path='/' + self.path + '/',
                 RoleName=role_name,
@@ -71,7 +61,6 @@ class IAMAdmin:
                 Description=description,
                 MaxSessionDuration=3600
             )
-
 
             role_arn = response['Role']['Arn']
 
