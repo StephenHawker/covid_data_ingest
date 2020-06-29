@@ -46,7 +46,7 @@ def main():
 
         security_groups = []
         security_groups.append(SECURITY_GROUP_NAME)
-
+        uo_helper_funct = HelperFunctions()
 
         LOGGER.debug("input address file : %s ", ADDRESSES_FILE)
         LOGGER.debug("Parquet address file : %s ", ADDRESS_FILE_PARQUET)
@@ -72,9 +72,15 @@ def main():
         uo_iam_admin = IAMAdmin(REGION, IAM_PATH, 'default')
         #role_arn = uo_iam_admin.create_role(ROLE_NAME, ROLE_DESCRIPTION)
         role_arn = 'rolearnvalue'
-        #uo_iam_admin.create_policy(S3POLICY_NAME, ROLE_NAME, uo_storage_bucket.bucketname)
 
-        startup_script = ''
+
+        s3policy_dict = {}
+        s3policy_dict['<bucket_name>'] = uo_storage_bucket.bucketname
+
+        s3_policy_contents = uo_helper_funct.read_and_replace(s3policy_dict,
+                                                           POLICY_TEMPLATE_FOLDER + S3POLICY_FILE)
+        #uo_iam_admin.create_policy(s3_policy_contents, S3POLICY_NAME, ROLE_NAME)
+
         exists_instance_profile = uo_iam_admin.get_instance_profile(INSTANCE_PROFILE_NAME)
         if not exists_instance_profile:
             instance_profile_arn = uo_iam_admin.create_instance_profile(INSTANCE_PROFILE_NAME)
@@ -85,7 +91,7 @@ def main():
         Substitution is used to insert values into a template
         file - in this case the aws config
         '''
-        uo_helper_funct = HelperFunctions()
+
         config_dict = {}
         config_dict['<instanceprofile>'] = INSTANCE_PROFILE_NAME
         config_dict['<role_arn>'] = role_arn
@@ -95,13 +101,6 @@ def main():
 
 
         uo_helper_funct.write_file(config_contents, DIRNAME + '/' + CONFIG_FILENAME)
-
-
-        #FILE_TEMPLATE_FOLDER =
-        #INSTANCE_TEMPLATE_FOLDER =
-        #POLICY__TEMPLATE_FOLDER =
-        #ROLE_TEMPLATE_FOLDER =
-        #AWS_CREDENTIALS_FOLDER
 
         '''
         Add created role the instance profile
@@ -145,9 +144,45 @@ def main():
                                   '35.178.76.128'
                                  )
         uo_ssh.ssh_connect("ec2-user")
+
         install_script_list = uo_helper_funct.read_to_list(FILE_TEMPLATE_FOLDER
                                                            + '/' + INSTALL_SCRIPT)
         uo_ssh.execute_commands(install_script_list)
+
+        chmod_command_list = []
+        chmod_command_list.append('chmod 400 ' +
+                                  AWS_CREDENTIALS_FOLDER +
+                                  '/' + CONFIG_FILENAME)
+
+        #Upload file to correct credentials location
+        uo_ssh.upload_single_file(DIRNAME + '/' + CONFIG_FILENAME,
+                                  AWS_CREDENTIALS_FOLDER
+                                  )
+        #Set permissions on AWS credentials
+        uo_ssh.execute_commands(chmod_command_list)
+        '''
+        Get R script template
+        
+        '''
+        '''
+        Substitution is used to insert values into a template
+        file - in this case r script
+        '''
+
+        rscript_dict = {}
+        rscript_dict['<instanceprofile>'] = INSTANCE_PROFILE_NAME
+        rscript_dict['<role_arn>'] = role_arn
+
+        rscript_contents = uo_helper_funct.read_and_replace(rscript_dict,
+                                                           FILE_TEMPLATE_FOLDER + RSCRIPT_TEMPLATE)
+
+        uo_helper_funct.write_file(rscript_contents,
+                                   R_SCRIPT)
+
+        '''
+        Copy r script to instance
+        '''
+        uo_ssh.upload_single_file(R_SCRIPT, R_SCRIPT_REMOTE_LOC)
 
 
     except Exception as error:
@@ -221,13 +256,18 @@ if __name__ == "__main__":
         #Template folders
         FILE_TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.file_template_folder"]
         INSTANCE_TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.instance_template_folder"]
-        POLICY__TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.policy_template_folder"]
+        POLICY_TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.policy_template_folder"]
         ROLE_TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.role_template_folder"]
 
         CONFIG_TEMPLATE = CONFIGIMPORT["convex.config_template"]
         AWS_CREDENTIALS_FOLDER = CONFIGIMPORT["convex.aws_credentials_folder"]
         INSTALL_SCRIPT = CONFIGIMPORT["convex.install_script"]
         STARTUP_SCRIPT = CONFIGIMPORT["convex.startup_script"]
+
+        S3POLICY_FILE = CONFIGIMPORT["convex.s3policyfile"]
+        RSCRIPT_TEMPLATE = CONFIGIMPORT["convex.r_script_template"]
+        R_SCRIPT = CONFIGIMPORT["convex.r_script"]
+        R_SCRIPT_REMOTE_LOC = CONFIGIMPORT["convex.r_script_remote_loc"]
 
         main()
 

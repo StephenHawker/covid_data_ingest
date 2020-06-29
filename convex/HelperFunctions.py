@@ -1,12 +1,12 @@
 """HELPER Functions"""
 import logging
-import urllib.parse as urlparse
-import datetime
-import codecs
 import configparser
 
 
 class HelperFunctions:
+    """
+    Various helper functions
+    """
     ############################################################
     # constructor
     ############################################################
@@ -29,21 +29,22 @@ class HelperFunctions:
         """
         Load config file
         :param file: config file
-        :retu
+        :return config: return config
         """
         try:
             config = {}
 
             config = config.copy()
-            cp = configparser.ConfigParser()
-            cp.read(filename)
-            for sec in cp.sections():
+            conf_parse = configparser.ConfigParser()
+            conf_parse.read(filename)
+            for sec in conf_parse.sections():
                 name = sec.lower()  # string.lower(sec)
-                for opt in cp.options(sec):
-                    config[name + "." + opt.lower()] = cp.get(sec, opt).strip()
+                for opt in conf_parse.options(sec):
+                    config[name + "." + opt.lower()] = conf_parse.get(sec, opt).strip()
             return config
 
         except Exception as error:
+
             self.LOGGER.exception("Error in load_config : %s", repr(error))
             self.LOGGER.exception(("Error in load_config - filename - %s  ", filename))
             raise Exception("Error in load_config - filename - %s  ", filename)
@@ -57,12 +58,11 @@ class HelperFunctions:
         Write file from list
         :param contents_list: The list to write the file from.
         :param filename: The filename to write to.
-        :retu
         """
         try:
-            with open(filename, 'w') as f:
+            with open(filename, 'w') as fl_nm:
                 for line in contents_list:
-                    f.write("%s\n" % line)
+                    fl_nm.write("%s\n" % line)
 
         except Exception as error:
             self.LOGGER.exception("Error in read_and_replace : %s", repr(error))
@@ -83,8 +83,8 @@ class HelperFunctions:
 
         try:
 
-            with open(filename, 'r') as f:
-                file_contents = f.read()
+            with open(filename, 'r') as fl_nm:
+                file_contents = fl_nm.read()
 
 
             for key in contents_dic.keys():
@@ -94,6 +94,7 @@ class HelperFunctions:
             return file_contents
 
         except Exception as error:
+
             self.LOGGER.exception("Error in read_and_replace : %s", repr(error))
             self.LOGGER.exception(("Error in read_and_replace - filename - %s  ", filename))
             raise Exception("Error in read_and_replace - filename - %s  ", filename)
@@ -111,12 +112,13 @@ class HelperFunctions:
 
         try:
 
-            with open(filename, 'r') as f:
-                file_contents = f.read()
+            with open(filename, 'r') as fl_nm:
+                file_contents = fl_nm.read()
 
             return file_contents
 
         except Exception as error:
+
             self.LOGGER.exception("Error in read_file_contents : %s", repr(error))
             self.LOGGER.exception(("Error in read_file_contents - filename - %s  ", filename))
             raise Exception("Error in read_file_contents - filename - %s  ", filename)
@@ -134,10 +136,11 @@ class HelperFunctions:
 
         try:
 
-            with open(filename, 'w') as f:
-                f.writelines(contents)
+            with open(filename, 'w') as fl_nm:
+                fl_nm.writelines(contents)
 
         except Exception as error:
+
             self.LOGGER.exception("Error in write_file : %s", repr(error))
             self.LOGGER.exception(("Error in write_file - filename - %s  ", filename))
             raise Exception("Error in write_file - filename - %s ", filename)
@@ -156,8 +159,8 @@ class HelperFunctions:
 
         try:
 
-            with open(filename, 'r') as f:
-                file_contents_list = f.readlines()
+            with open(filename, 'r') as fl_nm:
+                file_contents_list = fl_nm.readlines()
 
             return file_contents_list
 

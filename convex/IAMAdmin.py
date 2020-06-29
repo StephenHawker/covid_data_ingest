@@ -75,7 +75,7 @@ class IAMAdmin:
 
             role_arn = response['Role']['Arn']
 
-            self.LOGGER(" Created IAM role: %s", role_arn)
+            self.LOGGER.debug(" Created IAM role: %s", role_arn)
 
         except ClientError as error:
 
@@ -89,62 +89,37 @@ class IAMAdmin:
     ############################################################
     # create Policy and attach to Role
     ############################################################
-    def create_policy(self, policy_name, role_name, bucket_name):
+    def create_policy(self, policy_content, policy_name, role_name):
         """
         Get the policy and attach it to the role
         Usage is shown in usage_demo at the end of this module.
+        :param policy_content : The json content of the policy
         :param policy_name: The name of the policy.
         :param role_name : The name of the Role to attach the policy to
-        :param bucket_name : The name of the bucket to attach the policy to
         """
         try:
             iam = self.session.client('iam')
 
-            managed_policy = {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:ListBucket"
-                  ],
-                 "Resource": [
-                    "arn:aws:s3:::" + bucket_name
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:PutObject",
-                    "s3:GetObject",
-                    "s3:DeleteObject",
-                    "s3:PutObjectAcl"
-                  ],
-                  "Resource": [
-                     "arn:aws:s3:::" + bucket_name + "/*"
-                  ]
-                }
-              ]
-            }
-
             response = iam.create_policy(
                 PolicyName=policy_name,
-                PolicyDocument=json.dumps(managed_policy)
+                PolicyDocument=json.dumps(policy_content)
             )
             policy_arn = response['Policy']['Arn']
 
             iam.attach_role_policy(
                 PolicyArn=policy_arn,
-                RoleName= role_name
+                RoleName=role_name
             )
 
-            self.LOGGER(" Created IAM policy: %s", response)
+            self.LOGGER.debug(" Created IAM policy: %s, arn: %s",
+                        response,
+                        policy_arn
+                        )
 
         except ClientError as error:
 
-            self.LOGGER.exception("Couldn't create policy named '%s' in region=%s for role_name %s.",
+            self.LOGGER.exception("Couldn't create policy named '%s' for role_name %s.",
                                   policy_name,
-                                  self.region,
                                   role_name)
             self.LOGGER.exception("Error:  %s", repr(error))
             raise error
@@ -184,8 +159,8 @@ class IAMAdmin:
 
         except ClientError as error:
 
-            self.LOGGER.exception("Couldn't delete role named '%s' in region=%s ",
-                             role_name, self.region)
+            self.LOGGER.exception("Couldn't delete role named '%s' ",
+                                  role_name)
             self.LOGGER.exception("Error:  %s", repr(error))
             raise error
         else:
@@ -215,8 +190,8 @@ class IAMAdmin:
 
         except ClientError as error:
 
-            self.LOGGER.exception("Couldn't create role named '%s' in region=%s.",
-                             profile_name, self.region)
+            self.LOGGER.exception("Couldn't instance profile named '%s'.",
+                                  profile_name)
             self.LOGGER.exception("Error:  %s", repr(error))
             #raise error
         else:
@@ -273,7 +248,7 @@ class IAMAdmin:
 
             profile_arn = instance_profile.arn
 
-            self.LOGGER(" Get IAM Instance profile: %s ", profile_arn)
+            self.LOGGER.debug(" Get IAM Instance profile: %s ", profile_arn)
 
         except ClientError as error:
 

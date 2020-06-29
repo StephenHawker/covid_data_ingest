@@ -1,18 +1,26 @@
 """AWS EC2 Instance functions """
-import boto3
-import botocore
+
 import logging
-import json
+import boto3
+
 from botocore.exceptions import ClientError
-from ec2_metadata import ec2_metadata
 
 class InstanceManagement:
+    """
+    ECS Instance Management
+    """
     ############################################################
     # constructor
     ############################################################
     def __init__(self, region, profile_name):
+        """
+        Constructor
+        :param region: The region to use
+        :param profile_name: Profile to connect with
+        """
         self.name = "Instance Management"
         self.LOGGER = logging.getLogger(__name__)
+        self.region = region
         self.session = boto3.session.Session(profile_name=profile_name, region_name=region)
         self.client = boto3.client('ec2')
         self.ec2 = boto3.resource('ec2')
@@ -27,7 +35,9 @@ class InstanceManagement:
     ############################################################
     # Create EC2 Instance
     ############################################################
-    def create_instance(self,key_file, key_pair,
+    def create_instance(self,
+                        key_file,
+                        key_pair,
                         role_arn,
                         role_name,
                         startup_script,
@@ -35,8 +45,12 @@ class InstanceManagement:
                         ):
         """
         Get the security policy of a bucket.
-        Usage is shown in usage_demo at the end of this module.
-        :param session: The.
+        :param key_file: The keyfile to use to connect.
+        :param key_pair: The key pair to use
+        :param role_arn: The role arn to use
+        :param role_name: The role name to use
+        :param startup_script: Startup script for bootstrapping
+        :param security_groups: security groups to use
         :retu
         """
         try:
@@ -46,23 +60,25 @@ class InstanceManagement:
             key_pair_del_resp = ec2.delete_key_pair(KeyName=key_pair)
             key_pair_create_resp = ec2.create_key_pair(KeyName=key_pair)
 
-            KeyPairOut = str(key_pair_create_resp["KeyMaterial"])
+            key_pair_out = str(key_pair_create_resp["KeyMaterial"])
 
             with open(key_file, 'w') as opened_file:
-                opened_file.write(KeyPairOut)
+                opened_file.write(key_pair_out)
 
             instances = self.ec2.create_instances(
                 ImageId='ami-032598fcc7e9d1c7a',
                 MinCount=1,
                 MaxCount=1,
                 InstanceType='t2.micro',
-                UserData=startup_script,  # script that will start when server starts
+                UserData=startup_script,  # script that will bootstrap when server starts
                 SecurityGroupIds=security_groups,
                 KeyName=key_pair
             )
 
             for instance in self.ec2.instances.all():
-                self.LOGGER.debug("Instance id : %s instance state : ",instance.id , instance.state)
+                self.LOGGER.debug("Instance id : %s instance state : ",
+                                  instance.id,
+                                  instance.state)
                 first_instance = instance
                 instance_id = instance.id
                 #instance_ip = instance.
@@ -75,8 +91,9 @@ class InstanceManagement:
         except ClientError as error:
 
             self.LOGGER.exception(instances)
-            self.LOGGER.exception("Couldn't create EC2 Instance named '%s' in region=%s.",
-                             self.region, self.region)
+            self.LOGGER.exception("Couldn't create EC2 Instance in region=%s.",
+                                  self.region)
+            self.LOGGER.exception("Error:  %s", repr(error))
 
             raise error
         else:
@@ -85,13 +102,16 @@ class InstanceManagement:
     ############################################################
     # Associate Instance Profile to Instance
     ############################################################
-    def associate_profile_to_instance(self, profile_name,
-                                            profile_arn,
-                                            instance_id):
+    def associate_profile_to_instance(self,
+                                      profile_name,
+                                      profile_arn,
+                                      instance_id):
         """
         Get the security policy of a bucket.
-        :param session: The.
-        :retu
+        :param profile_name: The profile name to associate
+        :param profile_arn: The profile arn to associate
+        :param instance_id: The instance_id to associate to
+        :return assoc_inst_profile:
         """
         try:
 
@@ -104,7 +124,7 @@ class InstanceManagement:
             )
 
         except ClientError as error:
-            self.LOGGER.exception(error.response)
+            self.LOGGER.exception("Error:  %s", repr(error))
             self.LOGGER.debug("Instance id : %s", instance_id)
             self.LOGGER.exception("Couldn't associate EC2 Instance named '%s' in region=%s.",
                                   instance_id, self.region)
@@ -112,4 +132,3 @@ class InstanceManagement:
             raise error
         else:
             return assoc_inst_profile
-

@@ -8,6 +8,9 @@ from botocore.exceptions import ClientError
 
 
 class StorageBucket:
+    """
+    S3 Storage Bucket functions
+    """
     ############################################################
     # constructor
     ############################################################
@@ -63,7 +66,7 @@ class StorageBucket:
             self.LOGGER.info("Created bucket '%s' in region=%s",
                              bucket_response.name,
                              self.s3resource.meta.client.meta.region_name)
-            self.LOGGER("Bucket name %s and Region : %s ", self.bucketname, self.region)
+            self.LOGGER.info("Bucket name %s and Region : %s ", self.bucketname, self.region)
 
         except ClientError as error:
 

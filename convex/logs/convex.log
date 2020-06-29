@@ -1,21 +1,30 @@
-2020-06-28 21:48:15,378 - convex - INFO - Started run. main:
-2020-06-28 21:48:15,378 - convex - DEBUG - input address file : address_file.txt 
-2020-06-28 21:48:15,378 - convex - DEBUG - Parquet address file : address_file.parquet 
-2020-06-28 21:48:15,399 - convex - DEBUG - Bucket name prefix: sthconvex 
-2020-06-28 21:48:15,399 - convex - DEBUG - IAM_PATH : convex 
-2020-06-28 21:49:40,621 - convex - INFO - Started run. main:
-2020-06-28 21:49:40,622 - convex - DEBUG - input address file : address_file.txt 
-2020-06-28 21:49:40,622 - convex - DEBUG - Parquet address file : address_file.parquet 
-2020-06-28 21:49:40,642 - convex - DEBUG - Bucket name prefix: sthconvex 
-2020-06-28 21:49:40,643 - convex - DEBUG - IAM_PATH : convex 
-2020-06-28 21:51:31,259 - convex - INFO - Started run. main:
-2020-06-28 21:51:31,259 - convex - DEBUG - input address file : address_file.txt 
-2020-06-28 21:51:31,259 - convex - DEBUG - Parquet address file : address_file.parquet 
-2020-06-28 21:51:31,280 - convex - DEBUG - Bucket name prefix: sthconvex 
-2020-06-28 21:51:31,280 - convex - DEBUG - IAM_PATH : convex 
-2020-06-28 21:56:46,169 - convex - INFO - Started run. main:
-2020-06-28 21:56:46,170 - convex - DEBUG - input address file : address_file.txt 
-2020-06-28 21:56:46,170 - convex - DEBUG - Parquet address file : address_file.parquet 
-2020-06-28 21:56:46,191 - convex - DEBUG - Bucket name prefix: sthconvex 
-2020-06-28 21:56:46,191 - convex - DEBUG - IAM_PATH : convex 
-2020-06-28 22:25:39,994 - convex - INFO - Completed run.
+2020-06-29 00:34:14,049 - convex - INFO - Started run. main:
+2020-06-29 00:34:14,049 - convex - DEBUG - input address file : address_file.txt 
+2020-06-29 00:34:14,050 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-29 00:34:14,058 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-29 00:34:15,024 - convex - DEBUG - Bucket name : sthconvex759e6c8c-ce95-4cb7-a540-7c9a569604f8 
+2020-06-29 00:34:15,024 - convex - DEBUG - IAM_PATH : convex 
+2020-06-29 00:36:18,041 - convex - INFO - Started run. main:
+2020-06-29 00:36:18,042 - convex - DEBUG - input address file : address_file.txt 
+2020-06-29 00:36:18,042 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-29 00:36:18,051 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-29 00:36:19,010 - convex - DEBUG - Bucket name : sthconvex903c4a0e-4383-4473-9da8-1d4ad86db73b 
+2020-06-29 00:36:19,010 - convex - DEBUG - IAM_PATH : convex 
+2020-06-29 00:37:10,027 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-29 00:37:11,022 - convex - ERROR - TypeError("'Logger' object is not callable")
+2020-06-29 00:37:13,050 - convex - INFO - Completed run.
+2020-06-29 00:37:16,134 - convex - ERROR - An Exception in : MAIN :__main__
+2020-06-29 00:37:16,921 - convex - ERROR - <class 'Exception'>
+2020-06-29 00:37:17,348 - convex - ERROR - Convex Tech test failed!
+2020-06-29 00:38:36,562 - convex - INFO - Started run. main:
+2020-06-29 00:38:36,562 - convex - DEBUG - input address file : address_file.txt 
+2020-06-29 00:38:36,563 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-29 00:38:36,571 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-29 00:38:37,527 - convex - DEBUG - Bucket name : sthconvex48255f21-fd25-4b00-9e26-d7d3688d1def 
+2020-06-29 00:38:37,528 - convex - DEBUG - IAM_PATH : convex 
+2020-06-29 00:40:05,154 - convex - INFO - Started run. main:
+2020-06-29 00:40:05,154 - convex - DEBUG - input address file : address_file.txt 
+2020-06-29 00:40:05,154 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-29 00:40:05,163 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-29 00:40:06,210 - convex - DEBUG - Bucket name : sthconvex861615e9-50bb-4e07-87c3-02969d5c1b0f 
+2020-06-29 00:40:06,210 - convex - DEBUG - IAM_PATH : convex 
