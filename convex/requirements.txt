@@ -21,16 +21,10 @@ docutils==0.15.2
 ec2-metadata==2.2.0
 entrypoints==0.3
 flake8==3.7.8
-Flask==1.1.1
-Flask-Cors==3.0.8
-Flask-RESTful==0.3.7
-googlemaps==3.0.2
-haversine==2.1.1
 idna==2.8
 inflection==0.3.1
 isort==4.3.21
 itsdangerous==1.1.0
-Jinja2==2.10.1
 jmespath==0.10.0
 jsonschema==2.6.0
 lazy-object-proxy==1.4.1

@@ -488,3 +488,144 @@
 2020-06-30 00:07:16,671 - convex - DEBUG - Bucket name prefix: sthconvex 
 2020-06-30 00:07:17,738 - convex - DEBUG - Bucket name : sthconvex51041075-02cf-48af-9315-3a0f1c2b0498 
 2020-06-30 00:07:17,738 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:31:44,411 - convex - INFO - Completed run.
+2020-06-30 09:32:33,361 - convex - INFO - Completed run.
+2020-06-30 09:32:54,481 - convex - INFO - Started run. main:
+2020-06-30 09:32:54,481 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:32:54,482 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:32:54,493 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:32:55,423 - convex - DEBUG - Bucket name : sthconvex7ac73b99-85d3-47f2-a7f1-b6ed71c120a2 
+2020-06-30 09:32:55,424 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:36:21,112 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 09:36:21,315 - convex - ERROR - MalformedPolicyDocumentException('An error occurred (MalformedPolicyDocument) when calling the CreatePolicy operation: Syntax errors in policy.')
+2020-06-30 09:36:21,614 - convex - INFO - Completed run.
+2020-06-30 09:36:22,212 - convex - ERROR - An Exception in : MAIN :__main__
+2020-06-30 09:36:22,353 - convex - ERROR - <class 'Exception'>
+2020-06-30 09:36:22,511 - convex - ERROR - Convex Tech test failed!
+2020-06-30 09:38:09,265 - convex - INFO - Started run. main:
+2020-06-30 09:38:09,265 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:38:09,265 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:38:09,274 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:38:10,260 - convex - DEBUG - Bucket name : sthconvex9bfb42bb-77af-4b4a-a986-cc19c583689a 
+2020-06-30 09:38:10,260 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:40:04,528 - convex - INFO - Started run. main:
+2020-06-30 09:40:04,528 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:40:04,528 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:40:04,537 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:40:05,539 - convex - DEBUG - Bucket name : sthconvex17bd6d48-ed3a-4bd0-87ea-0b2c9bd33e82 
+2020-06-30 09:40:05,539 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:42:09,696 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 09:42:11,416 - convex - ERROR - AuthenticationException('Authentication failed.')
+2020-06-30 09:42:14,263 - convex - INFO - Completed run.
+2020-06-30 09:42:16,027 - convex - ERROR - An Exception in : MAIN :__main__
+2020-06-30 09:42:16,373 - convex - ERROR - <class 'Exception'>
+2020-06-30 09:42:16,575 - convex - ERROR - Convex Tech test failed!
+2020-06-30 09:42:56,425 - convex - INFO - Started run. main:
+2020-06-30 09:42:56,425 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:42:56,425 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:42:56,434 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:42:57,370 - convex - DEBUG - Bucket name : sthconvexd68d7ecf-0f5f-4f26-b198-e5eaac8876e0 
+2020-06-30 09:42:57,370 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:55:43,779 - convex - INFO - Started run. main:
+2020-06-30 09:55:43,780 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:55:43,780 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:55:43,790 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:55:44,832 - convex - DEBUG - Bucket name : sthconvex084c65ba-3deb-4e0d-aa4a-c695ce419f4e 
+2020-06-30 09:55:44,832 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 09:56:27,959 - convex - INFO - Started run. main:
+2020-06-30 09:56:27,960 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 09:56:27,960 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 09:56:27,969 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 09:56:28,935 - convex - DEBUG - Bucket name : sthconvex356f456b-d89a-4bce-9ef9-a7a900bef444 
+2020-06-30 09:56:28,935 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 10:09:46,363 - convex - INFO - Completed run.
+2020-06-30 10:10:18,498 - convex - INFO - Started run. main:
+2020-06-30 10:10:18,498 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 10:10:18,498 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 10:10:18,508 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 10:10:19,772 - convex - DEBUG - Bucket name : sthconvex9e75604d-e20d-41cf-80b6-9639431bc068 
+2020-06-30 10:10:19,772 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 10:35:30,138 - convex - INFO - Started run. main:
+2020-06-30 10:35:30,138 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 10:35:30,138 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 10:35:30,148 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 10:35:31,167 - convex - DEBUG - Bucket name : sthconvex8feb5400-b8b8-4096-a422-8aeef9a0b3e7 
+2020-06-30 10:35:31,167 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 10:37:40,685 - convex - INFO - Started run. main:
+2020-06-30 10:37:40,685 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 10:37:40,685 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 10:37:40,695 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 10:37:41,637 - convex - DEBUG - Bucket name : sthconvex7d155537-d820-4b34-8245-9a126bb38083 
+2020-06-30 10:37:41,637 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 10:39:56,787 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 10:39:57,501 - convex - ERROR - AuthenticationException('Authentication failed.')
+2020-06-30 10:48:28,741 - convex - INFO - Started run. main:
+2020-06-30 10:48:28,741 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 10:48:28,742 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 10:48:28,751 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 10:48:29,695 - convex - DEBUG - Bucket name : sthconvex873b6855-b12f-4cba-9781-a4a2d03e3b40 
+2020-06-30 10:48:29,695 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:09:58,217 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 11:16:56,726 - convex - INFO - Started run. main:
+2020-06-30 11:16:56,726 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:16:56,727 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:16:56,735 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:16:57,749 - convex - DEBUG - Bucket name : sthconvexe467a9c5-2347-4438-bd86-1adaae7198c2 
+2020-06-30 11:16:57,749 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:19:43,969 - convex - INFO - Started run. main:
+2020-06-30 11:19:43,969 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:19:43,969 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:19:43,979 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:19:48,161 - convex - DEBUG - Bucket name : sthconvex20212dc0-f8a8-41c3-b362-8634f14ed78d 
+2020-06-30 11:19:48,162 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:21:58,161 - convex - INFO - Started run. main:
+2020-06-30 11:21:58,161 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:21:58,162 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:21:58,171 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:21:59,189 - convex - DEBUG - Bucket name : sthconvex6b97d38c-e528-44f3-82ea-ea2b86766486 
+2020-06-30 11:21:59,189 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:23:29,229 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 11:23:30,297 - convex - ERROR - ParamValidationError("Parameter validation failed:\nInvalid type for parameter PolicyArn, value: None, type: <class 'NoneType'>, valid types: <class 'str'>")
+2020-06-30 11:23:30,932 - convex - INFO - Completed run.
+2020-06-30 11:23:36,477 - convex - INFO - Started run. main:
+2020-06-30 11:23:36,478 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:23:36,478 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:23:36,488 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:23:37,489 - convex - DEBUG - Bucket name : sthconvex90950526-424a-42c9-8dd5-7e538396b4f3 
+2020-06-30 11:23:37,489 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:37:42,410 - convex - INFO - Started run. main:
+2020-06-30 11:37:42,410 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:37:42,410 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:37:42,419 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:37:43,372 - convex - DEBUG - Bucket name : sthconvex7d34fea8-7635-4b26-9b4c-243a95899fb1 
+2020-06-30 11:37:43,372 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:39:50,731 - convex - INFO - Started run. main:
+2020-06-30 11:39:50,731 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:39:50,732 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:39:50,741 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:39:52,069 - convex - DEBUG - Bucket name : sthconvexf673f195-19c4-49b9-982a-ee1d432873e0 
+2020-06-30 11:39:52,069 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:41:18,044 - convex - INFO - Started run. main:
+2020-06-30 11:41:18,044 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:41:18,044 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:41:18,054 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:41:19,099 - convex - DEBUG - Bucket name : sthconvex686bd588-8042-4ff8-b20f-469d59a0b272 
+2020-06-30 11:41:19,099 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:42:08,655 - convex - INFO - Started run. main:
+2020-06-30 11:42:08,656 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:42:08,656 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:42:08,665 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:42:10,030 - convex - DEBUG - Bucket name : sthconvexed2a2f8e-b097-422b-bbcb-30b38faa3a57 
+2020-06-30 11:42:10,030 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:45:56,246 - convex - INFO - Started run. main:
+2020-06-30 11:45:56,247 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:45:56,247 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:45:56,256 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:45:57,186 - convex - DEBUG - Bucket name : sthconvexfff64cdd-c9c1-41d3-a0a4-ec43c0c08faa 
+2020-06-30 11:45:57,186 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 11:51:35,580 - convex - INFO - Started run. main:
+2020-06-30 11:51:35,580 - convex - DEBUG - input address file : address_file.txt 
+2020-06-30 11:51:35,580 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-06-30 11:51:35,589 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-06-30 11:51:36,602 - convex - DEBUG - Bucket name : sthconvex5bd208fa-bd80-403a-93c3-45ffd8db9085 
+2020-06-30 11:51:36,603 - convex - DEBUG - IAM_PATH : convex 

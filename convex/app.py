@@ -4,6 +4,7 @@ import os
 import sys
 import logging.config
 import uuid
+import json
 import pandas
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -34,8 +35,9 @@ def main():
         #parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not '
         #                    action='store_true')
 
-        args = parser.parse_args()
-        aws_profile = args.profile #'default'
+        #args = parser.parse_args()
+        #aws_profile = args.profile
+        aws_profile = 'default'
 
         LOGGER.info('Started run. main:')
 
@@ -79,8 +81,44 @@ def main():
 
         s3_policy_contents = uo_helper_funct.read_and_replace(s3policy_dict,
                                                            POLICY_TEMPLATE_FOLDER + S3POLICY_FILE).replace('\n', '')
-        s3_policy_contents = s3_policy_contents.replace(' ', '')
-        #uo_iam_admin.create_policy(s3_policy_contents, S3POLICY_NAME, ROLE_NAME)
+        s3_policy_contents = json.dumps(s3_policy_contents.replace(' ', ''))
+
+        managed_policy = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:ListBucket"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::" + uo_storage_bucket.bucketname
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:PutObject",
+                        "s3:GetObject",
+                        "s3:DeleteObject",
+                        "s3:PutObjectAcl"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::" + uo_storage_bucket.bucketname + "/*"
+                    ]
+                }
+            ]
+        }
+
+        s3_policy_arn_exists = uo_iam_admin.get_policy_arn(S3POLICY_NAME)['Arn']
+        if not s3_policy_arn_exists:
+            s3_policy_arn = uo_iam_admin.create_policy(managed_policy,
+                                                       S3POLICY_NAME,
+                                                       ROLE_NAME
+                                                       )
+        else:
+            s3_policy_arn = s3_policy_arn_exists
+        uo_iam_admin.attach_policy_role(s3_policy_arn, ROLE_NAME)
 
         exists_instance_profile = uo_iam_admin.get_instance_profile(INSTANCE_PROFILE_NAME)
         if not exists_instance_profile:
@@ -142,7 +180,18 @@ def main():
         assumerole_contents = uo_helper_funct.read_and_replace(assumerole_policy_dict,
                                                            POLICY_TEMPLATE_FOLDER + ASSUMEROLE_POLICY_FILE)
 
-        uo_iam_admin.create_policy(assumerole_contents,
+        assumerole_contents = json.dumps(assumerole_contents.replace('\n', '').replace(' ',''))
+
+        assum_role_policy=        {
+            "Version": "2012-10-17",
+            "Statement": {
+                "Effect": "Allow",
+                "Action": "sts:AssumeRole",
+                "Resource": role_arn
+            }
+        }
+
+        uo_iam_admin.create_policy(assum_role_policy,
                                    EC2POLICY_NAME,
                                    ROLE_NAME)
 
@@ -165,6 +214,9 @@ def main():
         chmod_command_list = []
         cmd_list_env = []
         #Set env variable
+
+
+        cmd_list_env.append('sudo mkdir ' + AWS_CREDENTIALS_FOLDER)
         cmd_list_env.append('export AWS_ROLE_ARN=' + role_arn)
 
         uo_ssh.execute_commands(cmd_list_env)

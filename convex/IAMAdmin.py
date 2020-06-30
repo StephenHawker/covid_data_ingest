@@ -115,63 +115,121 @@ class IAMAdmin:
             raise error
         else:
             return role_arn
+
+
+    ############################################################
+    # attatch policy to role
+    ############################################################
+    def attach_policy_role(self,
+                    policy_arn,
+                    role_name
+                    ):
+        """
+        Get the security policy of a bucket.
+        :param role_name: The role name to create
+        """
+        try:
+            iam = self.session.client('iam')
+
+            resp = iam.attach_role_policy(
+                PolicyArn=policy_arn,
+                RoleName=role_name
+            )
+
+            self.LOGGER.debug(" Attached IAM policy: %s, to Role  %s",
+                              policy_arn,
+                              role_name
+                              )
+
+        except iam.exceptions.EntityAlreadyExistsException:
+            pass
+
+        except iam.exceptions.NoSuchEntityException:
+            pass
+
+        except ClientError as error:
+
+            self.LOGGER.exception("Couldn't get role named '%s' in region=%s.",
+                                  role_name, self.region)
+
+            raise error
+        else:
+            return resp
+
+
+    ############################################################
+    # Get policy arn
+    ############################################################
+    def get_policy_arn(self,
+                    policy_name
+                    ):
+        """
+        Get the security policy of a bucket.
+        :param policy_name: The policy name to create
+        """
+        try:
+
+            iam = self.session.client('iam')
+            sts = self.session.client('sts')
+
+            # Slow and costly if you have many pages
+            paginator = iam.get_paginator('list_policies')
+            all_policies = [policy for page in paginator.paginate() for policy in page['Policies']]
+            [policy_1] = [p for p in all_policies if p['PolicyName'] == policy_name]
+
+            # Fast and direct
+            account_id = sts.get_caller_identity()['Account']
+            policy_arn = f'arn:aws:iam::{account_id}:policy/{policy_name}'
+            policy_2 = iam.get_policy(PolicyArn=policy_arn)['Policy']
+
+            # They're equal except with the direct method you'll also get description field
+            all(policy_1[k] == policy_2[k] for k in policy_1.keys() & policy_2.keys())
+
+
+            self.LOGGER.debug(" Attached IAM policy: %s, to Role  %s",
+                              policy_name
+                              )
+
+        except iam.exceptions.EntityAlreadyExistsException:
+            pass
+
+        except iam.exceptions.NoSuchEntityException:
+            pass
+
+        except ClientError as error:
+
+            self.LOGGER.exception("Couldn't get policy named '%s' in region=%s.",
+                                  policy_name, self.region)
+
+            raise error
+        else:
+            return policy_2
+
+
     ############################################################
     # create Policy and attach to Role
     ############################################################
-    def create_policy(self, policy_content, policy_name, role_name):
+    def create_policy(self, policy_content,
+                      policy_name,
+                      role_name
+                      ):
         """
         Get the policy and attach it to the role
         Usage is shown in usage_demo at the end of this module.
         :param policy_content : The json content of the policy
         :param policy_name: The name of the policy.
-        :param role_name : The name of the Role to attach the policy to
         """
         try:
             iam = self.session.client('iam')
 
-            bucket_name = 'sthconvexc3658a48-272b-4819-bbf0-9a25abf3bb8c'
-
-            managed_policy = {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:ListBucket"
-                  ],
-                 "Resource": [
-                    "arn:aws:s3:::" + bucket_name
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "s3:PutObject",
-                    "s3:GetObject",
-                    "s3:DeleteObject",
-                    "s3:PutObjectAcl"
-                  ],
-                  "Resource": [
-                     "arn:aws:s3:::" + bucket_name + "/*"
-                  ]
-                }
-              ]
-            }
             response = iam.create_policy(
                 PolicyName=policy_name,
                 PolicyDocument=json.dumps(policy_content)
             )
             policy_arn = response['Policy']['Arn']
 
-            iam.attach_role_policy(
-                PolicyArn=policy_arn,
-                RoleName=role_name
-            )
-
-            self.LOGGER.debug(" Created IAM policy: %s, arn: %s",
-                        response,
-                        policy_arn
-                        )
+        except iam.exceptions.EntityAlreadyExistsException:
+            pass
 
         except ClientError as error:
 
@@ -181,7 +239,7 @@ class IAMAdmin:
             self.LOGGER.exception("Error:  %s", repr(error))
             raise error
         else:
-            return response
+            return policy_arn
 
     ############################################################
     # delete role

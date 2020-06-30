@@ -80,7 +80,12 @@ class InstanceManagement:
                 KeyName=key_pair
             )
 
-            time.sleep(5)
+            #Wait for spin up
+            time.sleep(30)
+            #TODO Add waiter
+            #Wait until instance is running TODO
+            #instance_created_waiter = self.client.get_waiter('instance created')
+            #instance_created_waiter.wait(InstanceId=[instance_id])
 
             for instance in self.instances:
                 self.LOGGER.debug("Instance id : %s instance state : ",
@@ -88,11 +93,6 @@ class InstanceManagement:
                                   instance.state)
                 instance_id = instance.id
                 instance_ip = instance.public_ip_address
-
-            #Wait until instance is running TODO
-            #instance_created_waiter = self.client.get_waiter('instance created')
-            #instance_created_waiter.wait(InstanceId=[instance_id])
-
 
         except ClientError as error:
 

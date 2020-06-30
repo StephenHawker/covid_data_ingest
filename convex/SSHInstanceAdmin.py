@@ -1,6 +1,7 @@
 """SSH connection, commands, admin functions """
 import logging
 import paramiko
+import time
 
 from scp import SCPClient, SCPException
 
@@ -80,6 +81,8 @@ class SSHInstanceAdmin:
                 self.stdout_list.append(output)
                 self.stderror_list.append(erroroutput)
 
+                time.sleep(2)
+
         except Exception as error:
 
             self.LOGGER.exception("Error executing command to %s", command_list)
@@ -107,7 +110,7 @@ class SSHInstanceAdmin:
             self.LOGGER.error(error)
             raise error
 
-        finally:
+        else:
             self.LOGGER.info('Uploaded file %s to %s',
                              filename,
                              remote_path
