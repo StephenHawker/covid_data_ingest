@@ -25,7 +25,7 @@ by(df, 1:nrow(df), function(row) dostuff)
 for(i in 1:nrow(df)) {
     row <- dataFrame[i,]
     # do stuff with row
-    if (i==1) {
+    if (i=2) {
       #Write contents out to stderr
       write(row, stderr())
     }
