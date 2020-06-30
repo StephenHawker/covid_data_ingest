@@ -629,3 +629,9 @@
 2020-06-30 11:51:35,589 - convex - DEBUG - Bucket name prefix: sthconvex 
 2020-06-30 11:51:36,602 - convex - DEBUG - Bucket name : sthconvex5bd208fa-bd80-403a-93c3-45ffd8db9085 
 2020-06-30 11:51:36,603 - convex - DEBUG - IAM_PATH : convex 
+2020-06-30 12:01:11,706 - convex - ERROR - An Exception occurred convex tech test 
+2020-06-30 12:01:12,002 - convex - ERROR - SCPException('scp: /home/ec2-user/.aws/config: Permission denied\n')
+2020-06-30 12:01:14,652 - convex - INFO - Completed run.
+2020-06-30 12:01:15,948 - convex - ERROR - An Exception in : MAIN :__main__
+2020-06-30 12:01:16,137 - convex - ERROR - <class 'Exception'>
+2020-06-30 12:01:16,305 - convex - ERROR - Convex Tech test failed!

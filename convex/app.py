@@ -216,7 +216,7 @@ def main():
         #Set env variable
 
 
-        cmd_list_env.append('sudo mkdir ' + AWS_CREDENTIALS_FOLDER)
+        cmd_list_env.append('mkdir ' + AWS_CREDENTIALS_FOLDER)
         cmd_list_env.append('export AWS_ROLE_ARN=' + role_arn)
 
         uo_ssh.execute_commands(cmd_list_env)
