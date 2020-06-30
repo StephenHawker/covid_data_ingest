@@ -1,8 +1,10 @@
 """AWS EC2 Instance functions """
 
 import logging
+import time
 import boto3
 
+from collections import defaultdict
 from botocore.exceptions import ClientError
 
 class InstanceManagement:
@@ -24,6 +26,8 @@ class InstanceManagement:
         self.session = boto3.session.Session(profile_name=profile_name, region_name=region)
         self.client = boto3.client('ec2')
         self.ec2 = boto3.resource('ec2')
+        self.instances = None
+        self.ec2info = None
 
     ############################################################
     # str
@@ -42,6 +46,7 @@ class InstanceManagement:
                         role_name,
                         startup_script,
                         security_groups,
+                        image_id
                         ):
         """
         Get the security policy of a bucket.
@@ -65,8 +70,8 @@ class InstanceManagement:
             with open(key_file, 'w') as opened_file:
                 opened_file.write(key_pair_out)
 
-            instances = self.ec2.create_instances(
-                ImageId='ami-032598fcc7e9d1c7a',
+            self.instances = self.ec2.create_instances(
+                ImageId=image_id,
                 MinCount=1,
                 MaxCount=1,
                 InstanceType='t2.micro',
@@ -75,13 +80,14 @@ class InstanceManagement:
                 KeyName=key_pair
             )
 
-            for instance in self.ec2.instances.all():
+            time.sleep(5)
+
+            for instance in self.instances:
                 self.LOGGER.debug("Instance id : %s instance state : ",
                                   instance.id,
                                   instance.state)
-                first_instance = instance
                 instance_id = instance.id
-                #instance_ip = instance.
+                instance_ip = instance.public_ip_address
 
             #Wait until instance is running TODO
             #instance_created_waiter = self.client.get_waiter('instance created')
@@ -90,7 +96,7 @@ class InstanceManagement:
 
         except ClientError as error:
 
-            self.LOGGER.exception(instances)
+            self.LOGGER.exception(self.instances)
             self.LOGGER.exception("Couldn't create EC2 Instance in region=%s.",
                                   self.region)
             self.LOGGER.exception("Error:  %s", repr(error))
@@ -132,3 +138,42 @@ class InstanceManagement:
             raise error
         else:
             return assoc_inst_profile
+
+
+    ############################################################
+    # Get Instance Metadata
+    ############################################################
+    def get_instance_metadata(self, instance_id):
+        """
+        Get the security policy of a bucket.
+        :param instance_id: The instance_id to associate to
+        :return assoc_inst_profile:
+        """
+        try:
+
+            # Get information for all running instances
+            running_instances = self.ec2.instances.filter(Filters=[{
+                'Name': 'instance-state-name',
+                'Values': ['running']}])
+
+            ec2info = defaultdict()
+            for instance in running_instances:
+                # Add instance info to a dictionary
+                ec2info[instance.id] = {
+                    'type': instance.instance_type,
+                    'state': instance.state['Name'],
+                    'private_ip': instance.private_ip_address,
+                    'public_ip': instance.public_ip_address,
+                    'launch_time': instance.launch_time
+                }
+
+            self.ec2info = ec2info
+
+
+        except ClientError as error:
+            self.LOGGER.exception("Error:  %s", repr(error))
+            self.LOGGER.debug("Instance id : %s", instance_id)
+            self.LOGGER.exception("Couldn't associate EC2 Instance named '%s' in region=%s.",
+                                  instance_id, self.region)
+
+            raise error

@@ -30,17 +30,12 @@ def main():
         import argparse
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('profile', help='The aws profile to use.')
-        parser.add_argument('bucket_name', help='The name of the bucket to create.')
-        #parser.add_argument('region', help='The region in which to create your bucket.')
+        parser.add_argument('--profile', help='The aws profile to use.', required=True)
         #parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not '
-        #                                          'specified, the bucket is deleted '
-        #                                          'at the end of the demo.',
         #                    action='store_true')
 
-        #args = parser.parse_args()
-
-        #create_and_delete_my_bucket(args.bucket_name, args.region, args.keep_bucket)
+        args = parser.parse_args()
+        aws_profile = args.profile #'default'
 
         LOGGER.info('Started run. main:')
 
@@ -64,23 +59,27 @@ def main():
         uo_storage_bucket.create_bucket(BUCKET_NAME_PREFIX)
         uo_storage_bucket.add_file_to_bucket(filename_full_path_pq,
                                              ADDRESS_FILE_PARQUET,
-                                             FILE_NAME_PREFIX)
+                                             '') #FILE_NAME_PREFIX
 
         LOGGER.debug("Bucket name : %s ", uo_storage_bucket.bucketname)
         LOGGER.debug("IAM_PATH : %s ", IAM_PATH)
 
-        uo_iam_admin = IAMAdmin(REGION, IAM_PATH, 'default')
-        #role_arn = uo_iam_admin.create_role(ROLE_NAME,
-        #                                     ROLE_DESCRIPTION,
-        #                                     EC2POLICY_FILE)
-        role_arn = 'rolearnvalue'
+        uo_iam_admin = IAMAdmin(REGION, IAM_PATH, aws_profile)
 
+        exists_role_arn = uo_iam_admin.get_role(ROLE_NAME)
+        if not exists_role_arn:
+            role_arn = uo_iam_admin.create_role(ROLE_NAME,
+                                             ROLE_DESCRIPTION,
+                                             EC2POLICY_FILE)
+        else:
+            role_arn = exists_role_arn
 
         s3policy_dict = {}
         s3policy_dict['<bucket_name>'] = uo_storage_bucket.bucketname
 
         s3_policy_contents = uo_helper_funct.read_and_replace(s3policy_dict,
-                                                           POLICY_TEMPLATE_FOLDER + S3POLICY_FILE)
+                                                           POLICY_TEMPLATE_FOLDER + S3POLICY_FILE).replace('\n', '')
+        s3_policy_contents = s3_policy_contents.replace(' ', '')
         #uo_iam_admin.create_policy(s3_policy_contents, S3POLICY_NAME, ROLE_NAME)
 
         exists_instance_profile = uo_iam_admin.get_instance_profile(INSTANCE_PROFILE_NAME)
@@ -116,34 +115,46 @@ def main():
         Instance management - create instance and get it's
         instance id
         '''
-        uo_instance_mgmt = InstanceManagement(REGION, 'default')
+        uo_instance_mgmt = InstanceManagement(REGION, aws_profile)
 
         startup_script = UO_HELPER.read_file_contents(FILE_TEMPLATE_FOLDER + STARTUP_SCRIPT)
 
-        #instance_id = uoInstanceMgmt.create_instance(INSTANCE_KEY_FILE_NAME,
-        #                                             INSTANCE_KEYPAIR,
-        #                               'arn:aws:iam::707712313852:role/convex/convex_test_role',
-        #                               ROLE_NAME,
-        #                               startup_script,
-        #                               security_groups
-        #                               )
-        #instance_id = 'i-08b5b05427392fc57'
+        instance_id = uo_instance_mgmt.create_instance(INSTANCE_KEY_FILE_NAME,
+                                                     INSTANCE_KEYPAIR,
+                                       role_arn,
+                                       ROLE_NAME,
+                                       startup_script,
+                                       security_groups,
+                                       IMAGE_ID
+                                       )
 
         '''
         Associate the instance profile with the instance
         '''
-        #uoInstanceMgmt.associate_profile_to_instance( INSTANCE_PROFILE_NAME
-        #                                             , instance_profile_arn
-        #                                             , instance_id
-        #                                             )
+        uo_instance_mgmt.associate_profile_to_instance( INSTANCE_PROFILE_NAME
+                                                     , instance_profile_arn
+                                                     , instance_id
+                                                     )
 
+
+        assumerole_policy_dict = {}
+        assumerole_policy_dict['<role_arn>'] = role_arn
+        assumerole_contents = uo_helper_funct.read_and_replace(assumerole_policy_dict,
+                                                           POLICY_TEMPLATE_FOLDER + ASSUMEROLE_POLICY_FILE)
+
+        uo_iam_admin.create_policy(assumerole_contents,
+                                   EC2POLICY_NAME,
+                                   ROLE_NAME)
+
+        uo_instance_mgmt.get_instance_metadata(instance_id)
+        ip_address = uo_instance_mgmt.ec2info[instance_id]['public_ip']
 
         '''
         SSH onto the instance and execute set of commands from a file
         - update and install software e.g. R
         '''
         uo_ssh = SSHInstanceAdmin(INSTANCE_KEY_FILE_NAME,
-                                  '35.178.76.128'
+                                  ip_address
                                  )
         uo_ssh.ssh_connect("ec2-user")
 
@@ -152,13 +163,19 @@ def main():
         uo_ssh.execute_commands(install_script_list)
 
         chmod_command_list = []
+        cmd_list_env = []
+        #Set env variable
+        cmd_list_env.append('export AWS_ROLE_ARN=' + role_arn)
+
+        uo_ssh.execute_commands(cmd_list_env)
+
         chmod_command_list.append('chmod 400 ' +
                                   AWS_CREDENTIALS_FOLDER +
-                                  '/' + CONFIG_FILENAME)
+                                  CONFIG_FILENAME)
 
         #Upload file to correct credentials location
         uo_ssh.upload_single_file(DIRNAME + '/' + CONFIG_FILENAME,
-                                  AWS_CREDENTIALS_FOLDER
+                                  AWS_CREDENTIALS_FOLDER + CONFIG_FILENAME
                                   )
         #Set permissions on AWS credentials
         uo_ssh.execute_commands(chmod_command_list)
@@ -172,8 +189,8 @@ def main():
         '''
 
         rscript_dict = {}
-        rscript_dict['<instanceprofile>'] = INSTANCE_PROFILE_NAME
-        rscript_dict['<role_arn>'] = role_arn
+        rscript_dict['<bucket_name>'] = uo_storage_bucket.bucketname
+        rscript_dict['<file_name>'] = ADDRESS_FILE_PARQUET
 
         rscript_contents = uo_helper_funct.read_and_replace(rscript_dict,
                                                            FILE_TEMPLATE_FOLDER + RSCRIPT_TEMPLATE)
@@ -187,17 +204,17 @@ def main():
         uo_ssh.upload_single_file(R_SCRIPT, R_SCRIPT_REMOTE_LOC)
 
         chmod_command_list_r = []
-        chmod_command_list_r.append('chmod +x ' +
+        chmod_command_list_r.append('sudo chmod +x ' +
                                   R_SCRIPT_REMOTE_LOC +
-                                  '/' + R_SCRIPT)
+                                  R_SCRIPT)
 
         #Set permissions on r script
         uo_ssh.execute_commands(chmod_command_list_r)
 
 
         run_r_script = []
-        run_r_script.append('R ' + R_SCRIPT_REMOTE_LOC +
-                            '/' + R_SCRIPT)
+        run_r_script.append('sudo Rscript ' + R_SCRIPT_REMOTE_LOC +
+                            R_SCRIPT)
 
         uo_ssh.execute_commands(run_r_script)
 
@@ -260,6 +277,7 @@ if __name__ == "__main__":
         ROLE_NAME = CONFIGIMPORT["convex.rolename"]
         ROLE_DESCRIPTION = CONFIGIMPORT["convex.rolenamedescription"]
         S3POLICY_NAME = CONFIGIMPORT["convex.s3policyname"]
+        EC2POLICY_NAME = CONFIGIMPORT["convex.ec2assumerolepolicy"]
         IAM_PATH = CONFIGIMPORT["convex.iam_path"]
         ADDRESSES_FILE = CONFIGIMPORT["convex.address_file"]
         ADDRESS_FILE_PARQUET = CONFIGIMPORT["convex.address_file_parquet"]
@@ -268,6 +286,7 @@ if __name__ == "__main__":
         INSTANCE_KEY_FILE_NAME = CONFIGIMPORT["convex.instance_keyfile"]
         INSTANCE_KEYPAIR = CONFIGIMPORT["convex.instance_keypair"]
         CONFIG_FILENAME = CONFIGIMPORT["convex.config_filename"]
+        IMAGE_ID = CONFIGIMPORT["convex.image_id"]
 
         #Template folders
         FILE_TEMPLATE_FOLDER = DIRNAME + CONFIGIMPORT["convex.file_template_folder"]
@@ -282,6 +301,8 @@ if __name__ == "__main__":
 
         S3POLICY_FILE = CONFIGIMPORT["convex.s3policyfile"]
         EC2POLICY_FILE = CONFIGIMPORT["convex.ec2policyfile"]
+        ASSUMEROLE_POLICY_FILE = CONFIGIMPORT["convex.assumerolepolicyfile"]
+
         RSCRIPT_TEMPLATE = CONFIGIMPORT["convex.r_script_template"]
         R_SCRIPT = CONFIGIMPORT["convex.r_script"]
         R_SCRIPT_REMOTE_LOC = CONFIGIMPORT["convex.r_script_remote_loc"]

@@ -42,7 +42,7 @@ The R libraries used to read and process the file are up to you.
    - pyarrow (parquet file handling)
    - boto3 - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#bucket
    - paramiko (ssh client for EC2)
-   - R - R is available in Amazon Linux Extra topic "R3.4"
+   - R is available in Amazon Linux Extra topic "R3.4"
      sudo amazon-linux-extras install R3.4
      https://aws.amazon.com/amazon-linux-2/faqs/#Amazon_Linux_Extras
     This version is too low for many libraries - https://stackoverflow.com/questions/59415973/how-to-install-newer-version-of-r-on-amazon-linux-2
@@ -50,16 +50,31 @@ The R libraries used to read and process the file are up to you.
     yum -y install R
    - Configure access via instance profile : https://aws.amazon.com/premiumsupport/knowledge-center/s3-instance-access-bucket/
      https://docs.amazonaws.cn/en_us/cli/latest/userguide/cli-configure-metadata.html
+   
+   - .\templates\files\install.sh contains installables post creation of the instance
+   
+   - .\templates\files\r_script.r contains a template r script which is run on the instance to read the parquet
+      file from an S3 bucket
+   
 ## Tools used
-Pycharm Community 2020.1 IDS for python development
-AWS command line interface to setup credentials : https://aws.amazon.com/cli/ 
+- Pycharm Community 2020.1 IDS for python development
+- AWS command line interface to setup credentials : https://aws.amazon.com/cli/ 
+ - to install the aws client ,  sudo apt-get install awscli or sudo yum install awscli
+ - Once installed, run aws configure to create the required profile
+ 
 AWS policy gen : https://awspolicygen.s3.amazonaws.com/policygen.html
-
-### API keys
+R 3.4.1
+Arrow for R - Please note I couldn't install correctly due to C++ binary issues 
+- I tried AWS linux 1 and 2 and Ubuntu 18.04, so unfortunately the R script remains untested.
+- Alternative is spark / sparkly are alternatives but ran out of time working on this.
 
 ## Run	
-
-Configure convex.ini with the appropriate parameters
+Configure convex.ini with the appropriate parameter for security_group_name 
+ - security_group_name needs to be a security group that gives your profile user access to the instance
+ 
+ - Install required python packages : pip -r requirements.txt
+ - To run, run app.py --profile <profile name to use>
+ 
 
 
 

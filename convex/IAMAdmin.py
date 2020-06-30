@@ -66,6 +66,9 @@ class IAMAdmin:
 
             self.LOGGER.debug(" Created IAM role: %s", role_arn)
 
+        except iam.exceptions.EntityAlreadyExistsException:
+            pass
+
         except ClientError as error:
 
             self.LOGGER.exception("Couldn't create role named '%s' in region=%s.",
@@ -75,6 +78,43 @@ class IAMAdmin:
         else:
             return role_arn
 
+
+    ############################################################
+    # get role
+    ############################################################
+    def get_role(self,
+                    role_name
+                    ):
+        """
+        Get the security policy of a bucket.
+        :param role_name: The role name to create
+        """
+        try:
+            iam = self.session.client('iam')
+            role_name = role_name
+
+            response = iam.get_role(
+                RoleName=role_name
+            )
+
+            role_arn = response['Role']['Arn']
+
+            self.LOGGER.debug(" Get IAM role: %s", role_arn)
+
+        except iam.exceptions.EntityAlreadyExistsException:
+            pass
+
+        except iam.exceptions.NoSuchEntityException:
+            pass
+
+        except ClientError as error:
+
+            self.LOGGER.exception("Couldn't get role named '%s' in region=%s.",
+                                  role_name, self.region)
+
+            raise error
+        else:
+            return role_arn
     ############################################################
     # create Policy and attach to Role
     ############################################################
@@ -89,6 +129,34 @@ class IAMAdmin:
         try:
             iam = self.session.client('iam')
 
+            bucket_name = 'sthconvexc3658a48-272b-4819-bbf0-9a25abf3bb8c'
+
+            managed_policy = {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:ListBucket"
+                  ],
+                 "Resource": [
+                    "arn:aws:s3:::" + bucket_name
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:PutObjectAcl"
+                  ],
+                  "Resource": [
+                     "arn:aws:s3:::" + bucket_name + "/*"
+                  ]
+                }
+              ]
+            }
             response = iam.create_policy(
                 PolicyName=policy_name,
                 PolicyDocument=json.dumps(policy_content)
