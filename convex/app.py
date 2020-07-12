@@ -41,19 +41,13 @@ def main():
 
         LOGGER.info('Started run. main:')
 
+        uo_helper_funct = HelperFunctions()
         security_groups = []
         security_groups.append(SECURITY_GROUP_NAME)
-        uo_helper_funct = HelperFunctions()
-
-        LOGGER.debug("input address file : %s ", ADDRESSES_FILE)
-        LOGGER.debug("Parquet address file : %s ", ADDRESS_FILE_PARQUET)
-
-        """Read file from disk"""
-        df_addr = pandas.read_csv(ADDRESSES_FILE)
-        address_table = pa.Table.from_pandas(df_addr)
-        pq.write_table(address_table, ADDRESS_FILE_PARQUET)
-
         filename_full_path_pq = os.path.join(DIRNAME, ADDRESS_FILE_PARQUET)
+
+        #write parquet file
+        write_parquet_file()
 
         LOGGER.debug("Bucket name prefix: %s ", BUCKET_NAME_PREFIX)
 
@@ -205,7 +199,7 @@ def main():
         uo_ssh = SSHInstanceAdmin(INSTANCE_KEY_FILE_NAME,
                                   ip_address
                                  )
-        uo_ssh.ssh_connect("ec2-user")
+        uo_ssh.ssh_connect(INSTANCE_USER)
 
         install_script_list = uo_helper_funct.read_to_list(FILE_TEMPLATE_FOLDER
                                                            + '/' + INSTALL_SCRIPT)
@@ -225,12 +219,33 @@ def main():
                                   AWS_CREDENTIALS_FOLDER +
                                   CONFIG_FILENAME)
 
+
         #Upload file to correct credentials location
         uo_ssh.upload_single_file(DIRNAME + '/' + CONFIG_FILENAME,
                                   AWS_CREDENTIALS_FOLDER + CONFIG_FILENAME
                                   )
         #Set permissions on AWS credentials
         uo_ssh.execute_commands(chmod_command_list)
+
+        '''
+        Get copy bucket
+        '''
+
+        copy_bucket_dict = {}
+        copy_bucket_list = [] #copy_bucket.sh
+
+        copy_bucket_dict['<bucket_name>'] = uo_storage_bucket.bucketname
+        copy_bucket_dict['<file_name>'] = ADDRESS_FILE_PARQUET
+        copy_bucket_dict['<location>']  = R_SCRIPT_REMOTE_LOC
+
+        copy_bucket_contents = uo_helper_funct.read_and_replace(copy_bucket_dict,
+                                                           FILE_TEMPLATE_FOLDER + COPY_BUCKET_TEMPLATE)
+
+        copy_bucket_list = copy_bucket_contents.splitlines()
+        ##Get bucket from S3 to EC2 instance
+        uo_ssh.execute_commands(copy_bucket_list)
+
+
         '''
         Get R script template
         
@@ -239,10 +254,12 @@ def main():
         Substitution is used to insert values into a template
         file - in this case r script
         '''
-
         rscript_dict = {}
+
         rscript_dict['<bucket_name>'] = uo_storage_bucket.bucketname
         rscript_dict['<file_name>'] = ADDRESS_FILE_PARQUET
+        rscript_dict['<location>'] = R_SCRIPT_REMOTE_LOC
+
 
         rscript_contents = uo_helper_funct.read_and_replace(rscript_dict,
                                                            FILE_TEMPLATE_FOLDER + RSCRIPT_TEMPLATE)
@@ -285,6 +302,20 @@ def main():
         #uo_iam_admin.delete_role(ROLE_NAME)
 
         LOGGER.info('Completed run.')
+
+    ############################################################
+    # Write local parquet file
+    ############################################################
+def write_parquet_file():
+
+    LOGGER.debug("input address file : %s ", ADDRESSES_FILE)
+    LOGGER.debug("Parquet address file : %s ", ADDRESS_FILE_PARQUET)
+
+    """Read file from disk"""
+    df_addr = pandas.read_csv(ADDRESSES_FILE)
+    address_table = pa.Table.from_pandas(df_addr)
+    pq.write_table(address_table, ADDRESS_FILE_PARQUET)
+
 
 ############################################################
 # Run
@@ -356,8 +387,10 @@ if __name__ == "__main__":
         ASSUMEROLE_POLICY_FILE = CONFIGIMPORT["convex.assumerolepolicyfile"]
 
         RSCRIPT_TEMPLATE = CONFIGIMPORT["convex.r_script_template"]
+        COPY_BUCKET_TEMPLATE = CONFIGIMPORT["convex.copy_bucket_template"]
         R_SCRIPT = CONFIGIMPORT["convex.r_script"]
         R_SCRIPT_REMOTE_LOC = CONFIGIMPORT["convex.r_script_remote_loc"]
+        INSTANCE_USER = CONFIGIMPORT["convex.instance_user"]
 
         main()
 

@@ -67,6 +67,8 @@ R 3.4.1
 Arrow for R - Please note I couldn't install correctly due to C++ binary issues 
 - I tried AWS linux 1 and 2 and Ubuntu 18.04, so unfortunately the R script remains untested.
 - Alternative is spark / sparkly are alternatives but ran out of time working on this.
++ 13/07/2020 - Changed R script to use sparklyr, use spark version 3.0.0 for this.
+Streaming from S3 AWS requires version 3 of hadoop with appropriate AWS 
 
 ## Run	
 Configure convex.ini with the appropriate parameter for security_group_name 
