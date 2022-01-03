@@ -1,0 +1,232 @@
+2021-04-09 19:54:39,287 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-04-09 19:54:39,288 - firestation - ERROR - <class 'NameError'>
+2021-04-09 19:54:39,288 - firestation - ERROR - name 'DISTANCE_MATRIX_API_KEY' is not defined
+2021-04-09 19:56:28,752 - firestation - INFO - Started run. main:
+2021-04-09 19:56:28,752 - firestation - ERROR - An Exception occurred Firestation Ingest 
+2021-04-09 19:56:28,752 - firestation - ERROR - <class 'KeyError'>
+2021-04-09 19:56:28,753 - firestation - ERROR - 'firestation.json_file'
+2021-04-09 19:56:28,753 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-04-09 19:56:28,753 - firestation - ERROR - <class 'Exception'>
+2021-04-09 19:56:28,753 - firestation - ERROR - !
+2021-04-10 19:43:19,910 - firestation - INFO - Started run. main:
+2021-04-10 19:43:19,911 - firestation - ERROR - An Exception occurred Firestation Ingest 
+2021-04-10 19:43:19,911 - firestation - ERROR - <class 'KeyError'>
+2021-04-10 19:43:19,911 - firestation - ERROR - 'firestation.json_file'
+2021-04-10 19:43:19,911 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-04-10 19:43:19,911 - firestation - ERROR - <class 'Exception'>
+2021-04-10 19:43:19,911 - firestation - ERROR - !
+2021-04-10 19:46:00,276 - firestation - INFO - Started run. main:
+2021-04-10 19:46:00,276 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-04-10 19:46:00,276 - firestation - ERROR - <class 'KeyError'>
+2021-04-10 19:46:00,276 - firestation - ERROR - 'firestation.json_file'
+2021-04-10 19:46:00,276 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-04-10 19:46:00,276 - firestation - ERROR - <class 'Exception'>
+2021-04-10 19:46:00,276 - firestation - ERROR - !
+2021-04-10 19:46:23,998 - firestation - INFO - Started run. main:
+2021-04-10 19:46:23,998 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-04-10 19:46:23,999 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-04-10 19:46:51,096 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-04-10 19:46:51,634 - firestation - ERROR - <class 'NameError'>
+2021-04-10 19:46:51,936 - firestation - ERROR - name 'FORM_VALUE' is not defined
+2021-04-10 19:46:53,366 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-04-10 19:46:53,568 - firestation - ERROR - <class 'Exception'>
+2021-04-10 19:46:53,740 - firestation - ERROR - !
+2021-04-10 19:49:07,305 - firestation - INFO - Started run. main:
+2021-04-10 19:49:07,305 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-04-10 19:49:07,305 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-04-10 20:01:12,262 - firestation - INFO - Started run. main:
+2021-04-10 20:01:12,262 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-04-10 20:01:12,262 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:34:50,384 - firestation - INFO - Started run. main:
+2021-10-31 20:34:50,384 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:34:50,384 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:34:50,777 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-10-31 20:34:50,777 - firestation - ERROR - <class 'NameError'>
+2021-10-31 20:34:50,778 - firestation - ERROR - name 'TABLE_CLASS' is not defined
+2021-10-31 20:34:50,778 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-10-31 20:34:50,778 - firestation - ERROR - <class 'Exception'>
+2021-10-31 20:34:50,778 - firestation - ERROR - !
+2021-10-31 20:42:00,301 - firestation - INFO - Started run. main:
+2021-10-31 20:42:00,301 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:42:00,301 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:46:18,873 - firestation - INFO - Started run. main:
+2021-10-31 20:46:18,873 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:46:18,874 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:47:25,318 - firestation - INFO - Started run. main:
+2021-10-31 20:47:25,318 - firestation - DEBUG - scot_vaccine_data_url  : https://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:47:25,318 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:47:56,004 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-10-31 20:47:56,146 - firestation - ERROR - <class 'Exception'>
+2021-10-31 20:47:56,317 - firestation - ERROR - Error in save_tab_as_csv  : 
+2021-10-31 20:47:57,730 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-10-31 20:47:57,903 - firestation - ERROR - <class 'Exception'>
+2021-10-31 20:47:58,092 - firestation - ERROR - !
+2021-10-31 20:48:37,379 - firestation - INFO - Started run. main:
+2021-10-31 20:48:37,379 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:48:37,379 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:49:14,184 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-10-31 20:49:14,375 - firestation - ERROR - <class 'Exception'>
+2021-10-31 20:49:14,563 - firestation - ERROR - Error in save_tab_as_csv  : 
+2021-10-31 20:56:07,541 - firestation - INFO - Started run. main:
+2021-10-31 20:56:07,541 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:56:07,541 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:57:24,525 - firestation - INFO - Started run. main:
+2021-10-31 20:57:24,525 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:57:24,525 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:58:17,841 - firestation - INFO - Started run. main:
+2021-10-31 20:58:17,842 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:58:17,842 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:58:36,239 - firestation - INFO - Started run. main:
+2021-10-31 20:58:36,240 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:58:36,240 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 20:59:29,852 - firestation - INFO - Started run. main:
+2021-10-31 20:59:29,852 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 20:59:29,853 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:03:47,190 - firestation - INFO - Started run. main:
+2021-10-31 21:03:47,190 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:03:47,190 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:07:04,691 - firestation - INFO - Started run. main:
+2021-10-31 21:07:04,691 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:07:04,691 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:08:02,481 - firestation - INFO - Started run. main:
+2021-10-31 21:08:02,481 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:08:02,482 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:50:14,272 - firestation - INFO - Started run. main:
+2021-10-31 21:50:14,272 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:50:14,273 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:50:58,523 - firestation - INFO - Started run. main:
+2021-10-31 21:50:58,523 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:50:58,523 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:51:38,189 - firestation - INFO - Started run. main:
+2021-10-31 21:51:38,189 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:51:38,189 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:51:58,701 - firestation - INFO - Started run. main:
+2021-10-31 21:51:58,701 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:51:58,701 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:52:16,706 - firestation - INFO - Started run. main:
+2021-10-31 21:52:16,706 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:52:16,706 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 21:53:41,683 - firestation - INFO - Started run. main:
+2021-10-31 21:53:41,683 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 21:53:41,683 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 22:00:33,445 - firestation - INFO - Started run. main:
+2021-10-31 22:00:33,445 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 22:00:33,445 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 22:05:52,867 - firestation - INFO - Started run. main:
+2021-10-31 22:05:52,867 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 22:05:52,867 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-10-31 22:17:53,214 - firestation - INFO - Started run. main:
+2021-10-31 22:17:53,214 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-10-31 22:17:53,215 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-11-01 18:56:07,837 - firestation - INFO - Started run. main:
+2021-11-01 18:56:07,837 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-11-01 18:56:07,837 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 19:38:14,661 - firestation - INFO - Started run. main:
+2021-12-30 19:38:14,661 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 19:38:14,662 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 19:39:09,716 - firestation - INFO - Started run. main:
+2021-12-30 19:39:09,716 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 19:39:09,716 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 19:40:11,612 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-12-30 19:40:12,052 - firestation - ERROR - <class 'NameError'>
+2021-12-30 19:40:12,323 - firestation - ERROR - name 'CSV_FILE' is not defined
+2021-12-30 19:40:14,486 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-12-30 19:40:14,909 - firestation - ERROR - <class 'Exception'>
+2021-12-30 19:40:15,099 - firestation - ERROR - !
+2021-12-30 19:40:26,499 - firestation - INFO - Started run. main:
+2021-12-30 19:40:26,499 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 19:40:26,499 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 19:46:50,810 - firestation - INFO - Started run. main:
+2021-12-30 19:46:50,810 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 19:46:50,810 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 19:53:18,184 - firestation - INFO - Started run. main:
+2021-12-30 19:53:18,184 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 19:53:18,184 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:37:43,194 - firestation - INFO - Started run. main:
+2021-12-30 21:37:43,194 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:37:43,194 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:42:27,029 - firestation - INFO - Started run. main:
+2021-12-30 21:42:27,029 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:42:27,030 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:44:26,950 - firestation - INFO - Started run. main:
+2021-12-30 21:44:26,950 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:44:26,951 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:49:35,255 - firestation - INFO - Started run. main:
+2021-12-30 21:49:35,256 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:49:35,256 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:57:24,437 - firestation - INFO - Started run. main:
+2021-12-30 21:57:24,437 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:57:24,437 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 21:57:50,897 - firestation - INFO - Started run. main:
+2021-12-30 21:57:50,898 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 21:57:50,898 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:15:01,122 - firestation - INFO - Started run. main:
+2021-12-30 22:15:01,125 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:15:01,125 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:18:30,562 - firestation - INFO - Started run. main:
+2021-12-30 22:18:30,563 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:18:30,563 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:21:18,049 - firestation - INFO - Started run. main:
+2021-12-30 22:21:18,049 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:21:18,049 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:37:46,232 - firestation - INFO - Started run. main:
+2021-12-30 22:37:46,232 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:37:46,232 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:39:00,117 - firestation - INFO - Started run. main:
+2021-12-30 22:39:00,117 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:39:00,118 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:39:04,727 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-12-30 22:39:04,727 - firestation - ERROR - <class 'AttributeError'>
+2021-12-30 22:39:04,727 - firestation - ERROR - 'str' object has no attribute 'to_frame'
+2021-12-30 22:39:04,727 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-12-30 22:39:04,727 - firestation - ERROR - <class 'Exception'>
+2021-12-30 22:39:04,727 - firestation - ERROR - !
+2021-12-30 22:39:43,068 - firestation - INFO - Started run. main:
+2021-12-30 22:39:43,068 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:39:43,068 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:39:46,738 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-12-30 22:39:46,739 - firestation - ERROR - <class 'AttributeError'>
+2021-12-30 22:39:46,739 - firestation - ERROR - 'str' object has no attribute 'to_frame'
+2021-12-30 22:39:46,741 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-12-30 22:39:46,741 - firestation - ERROR - <class 'Exception'>
+2021-12-30 22:39:46,742 - firestation - ERROR - !
+2021-12-30 22:41:45,397 - firestation - INFO - Started run. main:
+2021-12-30 22:41:45,398 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 22:41:45,398 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 22:41:56,798 - firestation - INFO - Completed run.
+2021-12-30 23:26:28,963 - firestation - INFO - Started run. main:
+2021-12-30 23:26:28,963 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 23:26:28,963 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 23:26:38,727 - firestation - ERROR - An Exception occurred Covid Data Ingest 
+2021-12-30 23:26:38,727 - firestation - ERROR - <class 'AttributeError'>
+2021-12-30 23:26:38,727 - firestation - ERROR - 'NoneType' object has no attribute 'to_csv'
+2021-12-30 23:26:38,727 - firestation - ERROR - An Exception in : MAIN :__main__
+2021-12-30 23:26:38,727 - firestation - ERROR - <class 'Exception'>
+2021-12-30 23:26:38,727 - firestation - ERROR - !
+2021-12-30 23:27:30,927 - firestation - INFO - Started run. main:
+2021-12-30 23:27:30,927 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 23:27:30,927 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 23:36:17,569 - firestation - INFO - Started run. main:
+2021-12-30 23:36:17,570 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 23:36:17,570 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 23:37:57,238 - firestation - INFO - Completed run.
+2021-12-30 23:54:18,222 - firestation - INFO - Started run. main:
+2021-12-30 23:54:18,222 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2021-12-30 23:54:18,222 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2021-12-30 23:54:31,538 - firestation - INFO - Completed run.
+2022-01-01 17:57:09,969 - firestation - INFO - Started run. main:
+2022-01-01 17:57:09,970 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2022-01-01 17:57:09,970 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2022-01-01 17:57:23,111 - firestation - INFO - Completed run.
+2022-01-01 18:19:38,977 - firestation - INFO - Started run. main:
+2022-01-01 18:19:38,977 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2022-01-01 18:19:38,977 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2022-01-01 18:19:52,114 - firestation - INFO - Completed run.
+2022-01-02 18:39:40,648 - firestation - INFO - Started run. main:
+2022-01-02 18:39:40,648 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2022-01-02 18:39:40,649 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2022-01-02 18:39:56,759 - firestation - INFO - Completed run.
+2022-01-03 18:45:42,439 - firestation - INFO - Started run. main:
+2022-01-03 18:45:42,439 - firestation - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
+2022-01-03 18:45:42,439 - firestation - DEBUG - TEMP_FILE : scot_vacc.html 
+2022-01-03 18:45:59,013 - firestation - INFO - Completed run.
