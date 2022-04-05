@@ -80,14 +80,13 @@ def main():
         uodf_nhstrusthospdata = pandas.DataFrame
         uodf = pandas.DataFrame
         uodf_googlemobindex = pandas.DataFrame
-        uo_DBInsert = DbAccess('covid_data')
+        uo_DBInsert = DbAccess(CONN_STRING)
         ukapi = UKCov19()
-        """firestation_nearest_json_with_travel = configImport["firestation.json_file_with_travel"]"""
 
         '''
         Get Google Trend Data
         '''
-        get_Google_Trend_data()
+        #get_Google_Trend_data()
 
         '''
         Get File Based Data 
@@ -257,6 +256,7 @@ def get_File_data():
 
         # Get 111 and NHS pathways spreadsheets
         uoWFD = WebFileDownload()
+        uoWFDPathways = WebFileDownload()
         uoWFDAppleMobility = WebFileDownload()
         uoWFDGoogleMobility = WebFileDownload()
         uoSangerData = WebFileDownload()
@@ -265,19 +265,19 @@ def get_File_data():
         sTableName = ''
         sLINEAGES_BY_LTLA_AND_WEEK = 'lineages_by_ltla_and_week.tsv'
         sCOVID19_APP_DATA = 'covid19_app_data_by_local_authority.csv'
-        uo_DBInsertFiles = DbAccess('covid_data')
+        uo_DBInsertFiles = DbAccess(CONN_STRING)
 
         uoWFD.get_files_from_url("https://www.england.nhs.uk","/statistics/statistical-work-areas/covid-19-hospital-activity/",".xlsx","")
 
         uoONSData.get_files_from_url("https://www.ons.gov.uk","/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/covid19infectionsurveytechnicaldata",".xlsx","")
 
 
-        uoWFD.get_files_from_url("https://digital.nhs.uk","/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest",".xlsx","")
+        uoWFDPathways.get_files_from_url("https://digital.nhs.uk","/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest",".xlsx","")
         #Take retrieved files and load to DB
 
         uodf_NHSPathways = pandas.DataFrame
 
-        for fName in uoWFD.filenames:
+        for fName in uoWFDPathways.filenames:
             uodf_NHSPathways = pandas.read_excel(fName)
             if '111 Online Covid-19' in fName:
                 sTableName = 'uodf_111_Online_Covid19'
@@ -373,7 +373,7 @@ def get_Google_Trend_data():
         now = datetime.datetime.now()
         WORD_LIST = ['Coronavirus','Omicron','Covid','"Covid Symptoms"']
 
-        uo_DBInsertGT = DbAccess('covid_data')
+        uo_DBInsertGT = DbAccess(CONN_STRING)
         uoTrend = GoogleTrends()
         #uoTrend.GetTrends(kf_list=WORD_LIST, geo='GB')
 
@@ -451,6 +451,7 @@ if __name__ == "__main__":
         LOG_FILE = configImport["logging.log_file"]
         THE_LOG = LOG_PATH + "\\" + LOG_FILE
         LOGGING_LEVEL = configImport["logging.logginglevel"]
+        CONN_STRING = configImport["database.connection_string"]
 
         LEVELS = {'debug': logging.DEBUG,
                   'info': logging.INFO,

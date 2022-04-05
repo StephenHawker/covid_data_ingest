@@ -1861,3 +1861,6 @@ Backtrace:
 2022-04-05 20:43:03,978 - coviddata - DEBUG - scot_vaccine_data_url  : http://www.gov.scot/publications/coronavirus-covid-19-daily-data-for-scotland/ 
 2022-04-05 20:43:03,978 - coviddata - DEBUG - TEMP_FILE : scot_vacc.html 
 2022-04-05 20:57:10,596 - coviddata - INFO - Completed run.
+2022-04-05 23:29:10,977 - coviddata - INFO - Started run. main:
+2022-04-05 23:29:32,842 - coviddata - INFO - Started run. main:
+2022-04-05 23:34:19,194 - coviddata - INFO - Started run. main:
