@@ -1,3 +1,0 @@
-name,address,postcode
-steve,88 Plunkett Close,TN12 6HS
-mum,33 Heskett Park Pembury, TN2 4JQ
