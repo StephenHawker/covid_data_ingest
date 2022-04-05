@@ -687,3 +687,10 @@
 2020-07-13 00:19:42,339 - convex - DEBUG - Bucket name : sthconvex496fe956-0ccb-4184-9f9a-a018b1d5b815 
 2020-07-13 00:19:42,339 - convex - DEBUG - IAM_PATH : convex 
 2020-07-13 00:41:17,436 - convex - INFO - Completed run.
+2020-07-14 22:53:29,726 - convex - INFO - Completed run.
+2020-07-14 22:53:47,694 - convex - INFO - Started run. main:
+2020-07-14 22:53:47,694 - convex - DEBUG - input address file : address_file.txt 
+2020-07-14 22:53:47,694 - convex - DEBUG - Parquet address file : address_file.parquet 
+2020-07-14 22:53:47,704 - convex - DEBUG - Bucket name prefix: sthconvex 
+2020-07-14 22:53:48,664 - convex - DEBUG - Bucket name : sthconvexf567c5ac-f57f-4857-a3d0-095f614e8826 
+2020-07-14 22:53:48,664 - convex - DEBUG - IAM_PATH : convex 

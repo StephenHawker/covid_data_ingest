@@ -25,12 +25,12 @@ class UKCov19:
     ############################################################
     # Get Data
     ############################################################
-    def get_data_england(self):
+    def get_data_country(self, p_country_name):
 
         """Get the Covid data via the API"""
         try:
             ## areaType=nation, areaName=England
-            area_name = 'England'
+            area_name = p_country_name
             area_type = 'nation'
 
             # The location for which we want data.
@@ -43,10 +43,13 @@ class UKCov19:
                 "date": "date",
                 "areaCode": "areaCode",
                 "areaName": "areaName",
+                "areaType": "areaType",
                 "newCasesByPublishDate":
                     "newCasesByPublishDate",
                 "newCasesBySpecimenDate":
                     "newCasesBySpecimenDate",
+                "newCasesLFDOnlyBySpecimenDate":
+                "newCasesLFDOnlyBySpecimenDate",
                 "newDeaths28DaysByDeathDate":
                     "newDeaths28DaysByDeathDate",
                 "hospitalCases":
@@ -148,12 +151,12 @@ class UKCov19:
     ############################################################
     # Get Data for regional case demographics
     ############################################################
-    def get_region_hosp_data(self):
+    def get_region_hosp_data(self, sarea_type):
 
         """Get the Covid data via the API"""
         try:
             ## areaType=nation, areaName=England
-            area_type = 'nhsRegion'
+            area_type = sarea_type
 
             # The location for which we want data.
             location_filter = [f'areaType={area_type}']
@@ -215,3 +218,116 @@ class UKCov19:
             return(data2)
         except Exception as ex:  # pylint: disable=broad-except
             print(f'Exception [{ex}]')
+
+    ############################################################
+    # Get Data
+    ############################################################
+    def get_data_cases(self,p_area_type):
+
+        """Get the Covid data via the API"""
+        try:
+            ## areaType=nation, areaName=England
+            area_type = p_area_type
+
+            # The location for which we want data.
+            location_filter = [f'areaType={area_type}']
+
+            # The metric(s) to request. NOTE: More than in
+            # the previous example, for variety.
+            req_structure = {
+                "date": "date",
+                "areaCode": "areaCode",
+                "areaName": "areaName",
+                "areaType": "areaType",
+                "newCasesByPublishDate":
+                    "newCasesByPublishDate",
+                "newCasesBySpecimenDate":
+                    "newCasesBySpecimenDate",
+                "newCasesLFDOnlyBySpecimenDate":
+                    "newCasesLFDOnlyBySpecimenDate"
+            }
+
+            # Request the data.
+            # This gets all pages and we don't need to care how.
+            # , latest_by="newCasesBySpecimenDateAgeDemographics"
+            api = Cov19API(filters=location_filter, structure=req_structure)
+            # Get the data.
+            # NOTE3: If a 204 (Success - no data) occurs can we tell?
+            data = api.get_dataframe()
+            return(data)
+        except Exception as ex:  # pylint: disable=broad-except
+            print(f'Exception [{ex}]')
+
+
+    ############################################################
+    # Get Data for regional Vaccination demographics
+    ############################################################
+    def get_vax_demo_data(self,area_type):
+
+        """Get the Covid data via the API"""
+        try:
+            ## areaType=nation, areaName=England
+            v_area_type = area_type
+
+            # The location for which we want data.
+            location_filter = [f'areaType={v_area_type}']
+            # The metric(s) to request. NOTE: More than in
+            # the previous example, for variety.
+            req_structure = {
+                "date": "date",
+                "areaCode": "areaCode",
+                "areaName": "areaName",
+                "areaType": "areaType",
+                "vaccinationsAgeDemographics": "vaccinationsAgeDemographics"
+            }
+
+            # Request the data.
+            # This gets all pages and we don't need to care how.
+            # , latest_by="newCasesBySpecimenDateAgeDemographics"
+            api = Cov19API(filters=location_filter, structure=req_structure)
+            # Get the data.
+            # NOTE3: If a 204 (Success - no data) occurs can we tell?
+            data = api.get_dataframe()
+            data2 = self.helper_f.flatten_nested_json_df(data)
+            return(data2)
+        except Exception as ex:  # pylint: disable=broad-except
+            print(f'Exception [{ex}]')
+
+
+    ############################################################
+    # Get Data
+    ############################################################
+    def get_data_reinfectioncases(self,p_area_type):
+
+        """Get the Covid data via the API"""
+        try:
+            ## areaType=nation, areaName=England
+            area_type = p_area_type
+
+            # The location for which we want data.
+            location_filter = [f'areaType={area_type}']
+
+            # The metric(s) to request. NOTE: More than in
+            # the previous example, for variety.
+            req_structure = {
+                "date": "date",
+                "areaCode": "areaCode",
+                "areaName": "areaName",
+                "areaType": "areaType",
+                "newReinfectionsBySpecimenDate":
+                    "newReinfectionsBySpecimenDate",
+                "newReinfectionsBySpecimenDateRollingRate":
+                    "newReinfectionsBySpecimenDateRollingRate"
+            }
+
+            # Request the data.
+            # This gets all pages and we don't need to care how.
+            # , latest_by="newCasesBySpecimenDateAgeDemographics"
+            api = Cov19API(filters=location_filter, structure=req_structure)
+            # Get the data.
+            # NOTE3: If a 204 (Success - no data) occurs can we tell?
+            data = api.get_dataframe()
+            return(data)
+        except Exception as ex:  # pylint: disable=broad-except
+            print(f'Exception [{ex}]')
+

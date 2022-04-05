@@ -5,6 +5,7 @@ import datetime
 import codecs
 import configparser
 import pandas as pd
+import sqlalchemy
 
 
 class HelperFunctions:
@@ -77,6 +78,73 @@ class HelperFunctions:
             days_ahead += 7
 
         return d + datetime.timedelta(days_ahead)
+
+
+    ############################################################
+    # Read file into Pandas DF
+    ############################################################
+    def read_file_to_df(self, filename, sep):
+
+        df = pd.read_csv(filename, sep=sep, quotechar='"')
+        return df
+
+    ############################################################
+    # Get dictionary of name : type from list for Data
+    ############################################################
+    def create_dtype(self, p_columns):
+
+        dtype_data = dict()
+
+        # iterating the columns
+        for col in p_columns:
+            print(col)
+            dtype_data[col]= self.set_column_dtype(col) #sqlalchemy.types.VARCHAR(length=50)
+
+        return dtype_data
+
+    ############################################################
+    # Get dictionary of name : type from list for Data
+    ############################################################
+    def set_column_dtype(self, p_column_name):
+
+        if p_column_name in ['index'] :
+            return sqlalchemy.types.INTEGER()
+
+        elif p_column_name in ['covidOccupiedMVBeds', 'hospitalCases','newAdmissions','newCasesByPublishDate','newCasesBySpecimenDate',
+                             'newCasesLFDOnlyBySpecimenDate','newDeaths28DaysByDeathDate','newCasesBySpecimenDateAgeDemographics.cases',
+        'vaccinationsAgeDemographics.VaccineRegisterPopulationByVaccinationDate', 'vaccinationsAgeDemographics.cumPeopleVaccinatedCompleteByVaccinationDate',
+        'vaccinationsAgeDemographics.newPeopleVaccinatedCompleteByVaccinationDate', 'vaccinationsAgeDemographics.cumPeopleVaccinatedFirstDoseByVaccinationDate',
+        'vaccinationsAgeDemographics.newPeopleVaccinatedFirstDoseByVaccinationDate', 'vaccinationsAgeDemographics.cumPeopleVaccinatedSecondDoseByVaccinationDate',
+        'vaccinationsAgeDemographics.newPeopleVaccinatedSecondDoseByVaccinationDate', 'vaccinationsAgeDemographics.cumPeopleVaccinatedThirdInjectionByVaccinationDate',
+        'vaccinationsAgeDemographics.newPeopleVaccinatedThirdInjectionByVaccinationDate', 'vaccinationsAgeDemographics.cumVaccinationFirstDoseUptakeByVaccinationDatePercentage',
+        'vaccinationsAgeDemographics.cumVaccinationSecondDoseUptakeByVaccinationDatePercentage', 'vaccinationsAgeDemographics.cumVaccinationThirdInjectionUptakeByVaccinationDatePercentage',
+        'vaccinationsAgeDemographics.cumVaccinationCompleteCoverageByVaccinationDatePercentage','TriageCount','Total'] :
+            return sqlalchemy.types.Float(precision=3, asdecimal=True)
+
+        elif p_column_name in ['Covid_unscaled', 'Covid_monthly', 'isPartial', 'scale', 'Covid_Trend', 'seven_day_ago_Covid_Trend',
+         'Coronavirus','Omicron','Covid']:
+            return sqlalchemy.types.Float(precision=3, asdecimal=True)
+
+        #Google mobility index
+        elif p_column_name in ['retail_and_recreation_percent_change_from_baseline', 'grocery_and_pharmacy_percent_change_from_baseline', 'parks_percent_change_from_baseline',
+                               'transit_stations_percent_change_from_baseline', 'workplaces_percent_change_from_baseline', 'residential_percent_change_from_baseline']:
+            return sqlalchemy.types.Float(precision=3, asdecimal=True)
+
+        elif p_column_name in ['date','AsAtDate','WeekEndDate','Call Date','journeydate']:
+            return sqlalchemy.DateTime()
+
+        elif p_column_name in ['areaCode','areaType','newCasesBySpecimenDateAgeDemographics.age']:
+            return sqlalchemy.types.VARCHAR(length=50)
+
+        elif p_column_name in ['areaName','CCGName','ccgname']:
+            return sqlalchemy.types.VARCHAR(length=100)
+
+        elif p_column_name in ['newCasesBySpecimenDateAgeDemographics.rollingRate','newCasesBySpecimenDateAgeDemographics.rollingSum',
+                               'uniqueCasePositivityBySpecimenDateRollingSum']:
+            return sqlalchemy.types.Float(precision=3, asdecimal=True)
+
+        else:
+            return sqlalchemy.types.VARCHAR(length=100)
 
     ############################################################
     # untangle_utf8

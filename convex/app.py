@@ -35,9 +35,9 @@ def main():
         #parser.add_argument('--keep_bucket', help='Keeps the created bucket. When not '
         #                    action='store_true')
 
-        args = parser.parse_args()
-        aws_profile = args.profile
-        #aws_profile = 'default'
+        #args = parser.parse_args()
+        #aws_profile = args.profile
+        aws_profile = 'default'
 
         LOGGER.info('Started run. main:')
 

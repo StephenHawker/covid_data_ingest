@@ -19,7 +19,12 @@ Sys.setenv("AWS_DEFAULT_REGION" = "eu-west-2")
 #library("aws.s3")
 
 library(sparklyr)
-sc <- spark_connect (master = "local")
+conf <- spark_config()
+conf$sparklyr.defaultPackages <- "org.apache.hadoop:hadoop-aws:2.7.3"
+
+sc <- spark_connect (master = "local") #,
+#                    spark_home = "/usr/local/spark/",
+#                    config =  conf)
 
 # load parquet file into a Spark data frame and coerce into R data frame
 spark_df = spark_read_parquet(sc, name = "disp", path="<location><file_name>", repartition = 0, memory = TRUE)
@@ -33,14 +38,3 @@ v <- function(...) cat(sprintf(...), sep='', file=stderr())
 
 row <- r_df[2,]
 v("%s", row)
-
-#loop the df
-#for(i in 1:nrow(df)) {
-#    row <- df[i,]
-    # do stuff with row
-#    if (i==2) {
-      #Write contents out to stderr
-#      v("%s", row)
-#    }
-#}
-
